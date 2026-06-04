@@ -141,7 +141,17 @@ Base URL: `http://localhost:3000/api`
 
 ## Screenshots
 
-> *(tambahkan screenshot aplikasi di sini)*
+| Home | About |
+|------|-------|
+| ![Home](img/Home.png) | ![About](img/About.png) |
+
+| Features | Task Manager |
+|----------|-------------|
+| ![Features](img/Features.png) | ![Task Manager](img/Task Manager.png) |
+
+| Contact |
+|---------|
+| ![Contact](img/Contact.png) |
 
 ## Dibuat Oleh
 
