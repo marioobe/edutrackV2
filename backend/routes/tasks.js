@@ -7,6 +7,7 @@ const {
   updateTask,
   deleteTask,
   toggleTask,
+  toggleSubmit,
 } = require('../controllers/taskController');
 
 router.use(auth);
@@ -17,5 +18,6 @@ router.post('/', createTask);
 router.put('/:id', updateTask);
 router.delete('/:id', deleteTask);
 router.patch('/:id/toggle', toggleTask);
+router.patch('/:id/submit', toggleSubmit);
 
 module.exports = router;

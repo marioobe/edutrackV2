@@ -24,7 +24,7 @@ function renderCalendar(list) {
   HOURS.forEach(h=>{
     html+='<div class="cal-cell" style="background:#f8f9fa;text-align:right;padding:4px;font-size:0.7rem;color:#6c757d;">'+h+'</div>';
     DAYS.forEach(day=>{
-      const items = list.filter(j=> j.hari===day && j.jam_mulai && j.jam_mulai.startsWith(h.slice(0,2)));
+      const items = list.filter(j=> j.hari.toLowerCase()===day.toLowerCase() && j.jam_mulai && j.jam_mulai.startsWith(h.slice(0,2)));
       let cell = '<div class="cal-cell">';
       items.forEach(j=>{
         const cls = j.jenis==='praktikum'?'cal-praktikum':j.jenis==='bimbingan'?'cal-bimbingan':'';
@@ -55,7 +55,7 @@ function renderMobile(list) {
   if (!list.length) { container.innerHTML = '<p class="text-muted text-center py-3">Belum ada jadwal.</p>'; return; }
   let html = '';
   DAYS.forEach(day=>{
-    const items = list.filter(j=> j.hari===day).sort((a,b)=> a.jam_mulai.localeCompare(b.jam_mulai));
+    const items = list.filter(j=> j.hari.toLowerCase()===day.toLowerCase()).sort((a,b)=> a.jam_mulai.localeCompare(b.jam_mulai));
     if (!items.length) return;
     html += '<h6 class="fw-bold mt-3 mb-2"><i class="fas fa-calendar-day me-1"></i>'+day+'</h6>';
     items.forEach(j=>{
@@ -63,7 +63,7 @@ function renderMobile(list) {
       html += '<div class="list-jadwal-item '+cls+' card border-0 shadow-sm p-3">';
       html += '<div class="d-flex justify-content-between align-items-start">';
       html += '<div><h6 class="fw-bold mb-1">'+escapeHtml(j.mata_kuliah)+'</h6>';
-      html += '<small class="text-muted">'+j.jam_mulai+'-'+j.jam_selesai+' &bull; '+escapeHtml(j.ruang)+'</small></div>';
+      html += '<small class="text-muted">'+fmtJam(j.jam_mulai)+'-'+fmtJam(j.jam_selesai)+' &bull; '+escapeHtml(j.ruang)+'</small></div>';
       html += '<div class="d-flex gap-1"><button class="btn btn-sm btn-outline-warning btn-edit-mobile" data-id="'+j.id+'"><i class="fas fa-pen"></i></button>';
       html += '<button class="btn btn-sm btn-outline-danger btn-del-mobile" data-id="'+j.id+'"><i class="fas fa-trash"></i></button></div></div></div>';
     });

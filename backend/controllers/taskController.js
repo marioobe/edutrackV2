@@ -115,9 +115,10 @@ const toggleTask = async (req, res) => {
       return res.status(404).json({ message: 'Task not found.' });
     }
 
+    const newDone = !existing[0].is_done;
     await pool.execute(
-      'UPDATE tasks SET is_done = ? WHERE id = ?',
-      [!existing[0].is_done, req.params.id]
+      'UPDATE tasks SET is_done = ?, is_submitted = IF(? = 0, 0, is_submitted) WHERE id = ?',
+      [newDone, newDone, req.params.id]
     );
 
     const [updated] = await pool.execute('SELECT * FROM tasks WHERE id = ?', [req.params.id]);
@@ -127,4 +128,27 @@ const toggleTask = async (req, res) => {
   }
 };
 
-module.exports = { getTasks, getTask, createTask, updateTask, deleteTask, toggleTask };
+const toggleSubmit = async (req, res) => {
+  try {
+    const [existing] = await pool.execute(
+      'SELECT * FROM tasks WHERE id = ? AND user_id = ?',
+      [req.params.id, req.user.id]
+    );
+    if (existing.length === 0) {
+      return res.status(404).json({ message: 'Task not found.' });
+    }
+
+    const newSubmitted = !existing[0].is_submitted;
+    await pool.execute(
+      'UPDATE tasks SET is_submitted = ?, is_done = IF(? = 1, 1, is_done) WHERE id = ?',
+      [newSubmitted, newSubmitted, req.params.id]
+    );
+
+    const [updated] = await pool.execute('SELECT * FROM tasks WHERE id = ?', [req.params.id]);
+    res.json(updated[0]);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error.', error: err.message });
+  }
+};
+
+module.exports = { getTasks, getTask, createTask, updateTask, deleteTask, toggleTask, toggleSubmit };

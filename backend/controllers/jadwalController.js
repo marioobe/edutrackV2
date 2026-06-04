@@ -89,6 +89,21 @@ const updateJadwal = async (req, res) => {
   }
 };
 
+const getJadwalById = async (req, res) => {
+  try {
+    const [rows] = await pool.execute(
+      'SELECT * FROM jadwal WHERE id = ? AND user_id = ?',
+      [req.params.id, req.user.id]
+    );
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'Jadwal not found.' });
+    }
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error.', error: err.message });
+  }
+};
+
 const deleteJadwal = async (req, res) => {
   try {
     const [result] = await pool.execute('DELETE FROM jadwal WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
@@ -101,4 +116,4 @@ const deleteJadwal = async (req, res) => {
   }
 };
 
-module.exports = { getJadwal, addJadwal, updateJadwal, deleteJadwal };
+module.exports = { getJadwal, getJadwalById, addJadwal, updateJadwal, deleteJadwal };

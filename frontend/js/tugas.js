@@ -12,7 +12,8 @@ function handle401(res) {
 
 function formatDate(dateStr) {
   if (!dateStr) return '-';
-  const d = new Date(dateStr + 'T00:00:00');
+  const dateOnly = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+  const d = new Date(dateOnly + 'T00:00:00');
   if (isNaN(d.getTime())) return dateStr;
   const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
   const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
@@ -21,8 +22,9 @@ function formatDate(dateStr) {
 
 function getDeadlineInfo(dateStr) {
   if (!dateStr) return { cls: '', label: '' };
+  const dateOnly = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
   const now = new Date(); now.setHours(0,0,0,0);
-  const d = new Date(dateStr + 'T00:00:00');
+  const d = new Date(dateOnly + 'T00:00:00');
   const diff = Math.ceil((d - now) / (1000 * 60 * 60 * 24));
   if (diff < 0) return { cls: 'deadline-danger', label: 'Terlambat ' + Math.abs(diff) + ' hari' };
   if (diff === 0) return { cls: 'deadline-danger', label: 'Hari ini' };
@@ -110,10 +112,12 @@ function updateStats() {
   const total = allTasks.length;
   const doneCount = allTasks.filter(t => t.is_done).length;
   const pending = total - doneCount;
+  const unsubmitted = allTasks.filter(t => t.is_done && !t.is_submitted).length;
   const percent = total ? Math.round((doneCount / total) * 100) : 0;
   document.getElementById('totalTasks').textContent = total;
   document.getElementById('doneTasks').textContent = doneCount;
   document.getElementById('pendingTasks').textContent = pending;
+  document.getElementById('unsubmittedTasks').textContent = unsubmitted;
   document.getElementById('progressPercent').textContent = percent + '%';
   const ring = document.getElementById('progressRing');
   if (ring) ring.style.background = 'conic-gradient(#0d6efd ' + (percent * 3.6) + 'deg, #e9ecef ' + (percent * 3.6) + 'deg)';
@@ -154,7 +158,11 @@ function getFilteredTasks() {
   else if (status === 'selesai') filtered = filtered.filter(t => t.is_done);
   else if (status === 'lewat') {
     const now = new Date(); now.setHours(0,0,0,0);
-    filtered = filtered.filter(t => !t.is_done && t.deadline && new Date(t.deadline + 'T00:00:00') < now);
+    filtered = filtered.filter(t => {
+      if (!t.deadline || t.is_done) return false;
+      const dateOnly = t.deadline.includes('T') ? t.deadline.split('T')[0] : t.deadline;
+      return new Date(dateOnly + 'T00:00:00') < now;
+    });
   }
   if (priority) filtered = filtered.filter(t => t.priority === priority);
   if (matkul) filtered = filtered.filter(t => t.mata_kuliah === matkul);
@@ -174,7 +182,7 @@ function renderTasks() {
     const dl = getDeadlineInfo(t.deadline);
     const div = document.createElement('div');
     div.className = 'card mb-2 priority-' + t.priority + ' task-item border-0 shadow-sm';
-    div.innerHTML = '<div class="card-body py-2 px-3"><div class="d-flex align-items-start gap-2"><div class="pt-1"><input type="checkbox" class="form-check-input toggle-task" data-id="' + t.id + '" ' + (t.is_done ? 'checked' : '') + '></div><div class="flex-grow-1"><div class="d-flex justify-content-between align-items-start"><div><span class="' + (t.is_done ? 'task-done' : '') + ' fw-semibold">' + escHtml(t.title) + '</span></div><div class="d-flex gap-1"><button class="btn btn-link btn-sm text-secondary p-0 edit-task" data-id="' + t.id + '" title="Edit"><i class="fas fa-edit"></i></button><button class="btn btn-link btn-sm text-danger p-0 del-task" data-id="' + t.id + '" title="Hapus"><i class="fas fa-trash"></i></button></div></div><div class="d-flex flex-wrap align-items-center gap-1 mt-1"><span class="badge badge-task ' + (t.priority === 'tinggi' ? 'bg-danger' : t.priority === 'sedang' ? 'bg-warning text-dark' : 'bg-success') + '">' + t.priority + '</span>' + (t.mata_kuliah ? '<span class="badge badge-task bg-secondary bg-opacity-25 text-dark">' + escHtml(t.mata_kuliah) + '</span>' : '') + (t.deadline ? '<small class="' + dl.cls + ' ms-1"><i class="far fa-calendar-alt me-1"></i>' + formatDate(t.deadline) + ' <span class="fw-normal">(' + dl.label + ')</span></small>' : '<small class="text-muted ms-1"><i class="far fa-calendar-alt me-1"></i>Tidak ada deadline</small>') + '</div></div></div></div>';
+    div.innerHTML = '<div class="card-body py-2 px-3"><div class="d-flex align-items-start gap-2"><div class="pt-1"><input type="checkbox" class="form-check-input toggle-task" data-id="' + t.id + '" ' + (t.is_done ? 'checked' : '') + '></div><div class="flex-grow-1"><div class="d-flex justify-content-between align-items-start"><div><span class="' + (t.is_done ? 'task-done' : '') + ' fw-semibold">' + escHtml(t.title) + '</span></div><div class="d-flex gap-1"><button class="btn btn-link btn-sm text-secondary p-0 edit-task" data-id="' + t.id + '" title="Edit"><i class="fas fa-edit"></i></button><button class="btn btn-link btn-sm text-danger p-0 del-task" data-id="' + t.id + '" title="Hapus"><i class="fas fa-trash"></i></button></div></div><div class="d-flex flex-wrap align-items-center gap-1 mt-1"><span class="badge badge-task ' + (t.priority === 'tinggi' ? 'bg-danger' : t.priority === 'sedang' ? 'bg-warning text-dark' : 'bg-success') + '">' + t.priority + '</span>' + (t.mata_kuliah ? '<span class="badge badge-task bg-secondary bg-opacity-25 text-dark">' + escHtml(t.mata_kuliah) + '</span>' : '') + (t.is_submitted ? '<small class="text-success ms-1"><i class="fas fa-check-circle me-1"></i>Sudah dikumpul</small><button class="btn btn-link btn-sm text-success p-0 ms-1 submit-task" data-id="' + t.id + '" style="text-decoration:none;font-size:0.8rem" title="Batal kumpul"><i class="fas fa-undo"></i></button>' : (t.is_done ? '<small class="text-warning ms-1"><i class="fas fa-clock me-1"></i>Selesai dikerjakan</small><button class="btn btn-sm btn-outline-success ms-1 py-0 px-1 submit-task" data-id="' + t.id + '" style="font-size:0.75rem" title="Kumpulkan tugas"><i class="fas fa-upload me-1"></i>Kumpul</button>' : (t.deadline ? '<small class="' + dl.cls + ' ms-1"><i class="far fa-calendar-alt me-1"></i>' + formatDate(t.deadline) + ' <span class="fw-normal">(' + dl.label + ')</span></small>' : '<small class="text-muted ms-1"><i class="far fa-calendar-alt me-1"></i>Tidak ada deadline</small>'))) + '</div></div></div></div>';
     container.appendChild(div);
   });
   document.querySelectorAll('.toggle-task').forEach(el => {
@@ -188,6 +196,12 @@ function renderTasks() {
       if (!confirm('Hapus tugas ini?')) return;
       const res = await apiFetch(API + '/tasks/' + this.dataset.id, { method: 'DELETE' });
       if (res) { loadTasks(); }
+    });
+  });
+  document.querySelectorAll('.submit-task').forEach(el => {
+    el.addEventListener('click', async function() {
+      await apiFetch(API + '/tasks/' + this.dataset.id + '/submit', { method: 'PATCH', body: JSON.stringify({}) });
+      loadTasks();
     });
   });
   document.querySelectorAll('.edit-task').forEach(el => {
