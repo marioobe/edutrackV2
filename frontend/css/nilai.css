@@ -1,0 +1,12 @@
+body { background: #f0f2f5; }
+.stat-card { border-radius:.5rem; transition:transform .2s,box-shadow .2s; }
+.stat-card:hover { transform:translateY(-3px); box-shadow:0 .5rem 1rem rgba(0,0,0,.1)!important; }
+.grade-preview { font-size:1.3rem; font-weight:700; }
+.semester-tab { cursor:pointer; transition:all .15s; }
+.semester-tab.active { background-color:#0d6efd; color:#fff; border-color:#0d6efd; }
+.ipk-bar { height:20px; border-radius:10px; transition:width .6s ease; }
+.grade-bar { height:14px; border-radius:7px; transition:width .6s ease; }
+.table th { font-weight:600; font-size:.85rem; text-transform:uppercase; letter-spacing:.02em; }
+.hover-action { opacity:.4; transition:opacity .15s; }
+tr:hover .hover-action { opacity:1; }
+.card-header h6 { font-weight:600; }

@@ -1,0 +1,16 @@
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; }
+.priority-tinggi { border-left:4px solid #dc3545; }
+.priority-sedang { border-left:4px solid #ffc107; }
+.priority-rendah { border-left:4px solid #198754; }
+.task-done { text-decoration:line-through; opacity:.6; }
+.progress-ring { width: 120px; height: 120px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: bold; margin: 0 auto; }
+.stat-card { transition: transform .15s; border: none; }
+.stat-card:hover { transform: translateY(-3px); }
+.card { border: none; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075); }
+.card-header { background: #fff; border-bottom: 1px solid rgba(0,0,0,.075); font-weight: 600; }
+.filter-label { font-size: .8rem; font-weight: 600; color: #495057; margin-bottom: .25rem; }
+.matkul-progress-item { padding: .5rem 0; border-bottom: 1px solid #f0f0f0; }
+.matkul-progress-item:last-child { border-bottom: none; }
+.badge-task { font-size: .7rem; font-weight: 500; }
+.task-item { transition: background .1s; }
+.task-item:hover { background: #f8f9fa; }

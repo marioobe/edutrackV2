@@ -1,0 +1,141 @@
+:root {
+  --sb-primary: #0d6efd;
+  --sb-dark: #212529;
+}
+
+html { scroll-behavior: smooth; }
+body { padding-top: 56px; overflow-x: hidden; background: #f8f9fa; }
+
+/* Section title with underline */
+.section-title {
+  position: relative;
+  padding-bottom: 10px;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: #0d6efd;
+  border-radius: 2px;
+}
+.text-center .section-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Feature cards */
+.feature-card {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 12px;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.12) !important;
+}
+.feature-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+.icon-tugas { background: #e8f4fd; color: #0d6efd; }
+.icon-jadwal { background: #e6f7e6; color: #198754; }
+.icon-nilai { background: #fff8e1; color: #ffc107; }
+.arrow-icon { transition: transform 0.2s; }
+.feature-card:hover .arrow-icon { transform: translateX(4px); }
+.feature-card .card { cursor: pointer; }
+
+/* Calendar grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 80px repeat(6, 1fr);
+  gap: 1px;
+  background: #dee2e6;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.cal-header {
+  background: #f8f9fa;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px 4px;
+  font-size: 0.8rem;
+}
+.cal-header.time-col {
+  background: #f8f9fa;
+  color: #6c757d;
+  font-size: 0.75rem;
+}
+.cal-item {
+  background: #e7f1ff;
+  border-left: 3px solid #0d6efd;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin: 2px;
+  font-size: 0.7rem;
+  position: relative;
+  cursor: pointer;
+}
+.cal-item .item-actions {
+  display: none;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}
+.cal-item:hover .item-actions {
+  display: flex;
+  gap: 2px;
+}
+.cal-item .item-actions button {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 3px;
+  padding: 0 4px;
+  font-size: 0.6rem;
+  line-height: 1.4;
+}
+.cal-praktikum { background: #f0e6ff; border-left-color: #6f42c1; }
+.cal-bimbingan { background: #fff3e0; border-left-color: #fd7e14; }
+.cal-cell {
+  background: #fff;
+  min-height: 56px;
+  padding: 2px;
+}
+
+/* Badge jenis jadwal */
+.badge-kuliah { background: #e7f1ff; color: #0d6efd; }
+.badge-praktikum { background: #f0e6ff; color: #6f42c1; }
+.badge-bimbingan { background: #fff3e0; color: #fd7e14; }
+.fs-7 { font-size: 0.85rem; }
+
+/* Jadwal items (mobile) */
+.list-jadwal-item {
+  border-left: 4px solid #0d6efd;
+  margin-bottom: 8px;
+}
+.list-jadwal-item.praktikum { border-left-color: #6f42c1; }
+.list-jadwal-item.bimbingan { border-left-color: #fd7e14; }
+
+/* Priority borders */
+.priority-tinggi { border-left: 4px solid #dc3545; }
+.priority-sedang { border-left: 4px solid #ffc107; }
+.priority-rendah { border-left: 4px solid #198754; }
+.task-done { text-decoration: line-through; opacity: 0.6; }
+
+/* Stat card */
+.stat-card { transition: transform 0.15s; }
+.stat-card:hover { transform: translateY(-3px); }
+
+/* Deadline colors */
+.deadline-danger { color: #dc3545; font-weight: 600; }
+.deadline-warning { color: #d39e00; font-weight: 600; }
+.deadline-safe { color: #6c757d; }

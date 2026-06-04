@@ -1,0 +1,81 @@
+-- EduTrack Database Schema
+-- MySQL via XAMPP (phpMyAdmin)
+
+CREATE DATABASE IF NOT EXISTS edutrack1_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE edutrack1_db;
+
+-- 1. users
+CREATE TABLE IF NOT EXISTS users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  nim VARCHAR(30) DEFAULT NULL,
+  prodi VARCHAR(100) DEFAULT NULL,
+  foto_profil VARCHAR(255) DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 2. mata_kuliah
+CREATE TABLE IF NOT EXISTS mata_kuliah (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  nama VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- 3. tasks
+CREATE TABLE IF NOT EXISTS tasks (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  priority ENUM('tinggi','sedang','rendah') DEFAULT 'sedang',
+  deadline DATE DEFAULT NULL,
+  mata_kuliah VARCHAR(100) DEFAULT NULL,
+  is_done TINYINT(1) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- 4. jadwal
+CREATE TABLE IF NOT EXISTS jadwal (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  mata_kuliah VARCHAR(100) NOT NULL,
+  jenis ENUM('kuliah','praktikum','bimbingan') DEFAULT 'kuliah',
+  hari ENUM('senin','selasa','rabu','kamis','jumat','sabtu') NOT NULL,
+  jam_mulai TIME NOT NULL,
+  jam_selesai TIME NOT NULL,
+  ruang VARCHAR(50) DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- 5. nilai
+CREATE TABLE IF NOT EXISTS nilai (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  mata_kuliah VARCHAR(100) NOT NULL,
+  semester INT NOT NULL DEFAULT 1,
+  sks INT NOT NULL DEFAULT 2,
+  nilai_angka DECIMAL(4,2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- 6. messages (contact form)
+CREATE TABLE IF NOT EXISTS messages (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 7. subscribers (newsletter)
+CREATE TABLE IF NOT EXISTS subscribers (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;

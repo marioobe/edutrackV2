@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Saya - EduTrack</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <script src="auth-check.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-primary shadow fixed-top" data-bs-theme="dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="fas fa-graduation-cap me-2"></i>EduTrack</a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="taskmanager.html">Task Manager</a></li>
+          <li class="nav-item"><a class="nav-link" href="tugas.html">Tugas</a></li>
+          <li class="nav-item"><a class="nav-link" href="jadwal.html">Jadwal</a></li>
+          <li class="nav-item"><a class="nav-link" href="nilai.html">Nilai</a></li>
+          <li class="nav-item"><a class="nav-link active" href="profile.html">Profil</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2">
+          <span id="navUserName" class="text-white fw-semibold"></span>
+          <button id="btnLogout" class="btn btn-outline-light btn-sm"><i class="fas fa-sign-out-alt me-1"></i>Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4" style="margin-top:88px;">
+    <h4 class="mb-4"><i class="fas fa-user me-2"></i>Profil Saya</h4>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body text-center p-4">
+              <div class="position-relative mx-auto mb-3" style="width:100px;height:100px;">
+                <img id="profilePhoto" src="" alt="Foto Profil" class="rounded-circle bg-light border d-none" style="width:100px;height:100px;object-fit:cover;">
+                <div id="avatarInitial" class="profile-avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width:100px;height:100px;font-size:2.5rem;font-weight:700;">U</div>
+                <label for="fotoUpload" class="position-absolute bottom-0 end-0 btn btn-sm btn-light rounded-circle shadow-sm border" style="width:32px;height:32px;cursor:pointer;">
+                  <i class="fas fa-camera" style="font-size:0.8rem;"></i>
+                </label>
+                <input type="file" id="fotoUpload" accept="image/jpeg,image/png,image/gif,image/webp" class="d-none">
+              </div>
+              <h5 id="profileName">-</h5>
+              <p class="text-muted small mb-3" id="profileEmail">-</p>
+              <div class="d-flex justify-content-center gap-3 mb-3">
+                <div><small class="text-muted d-block">NIM</small><strong id="profileNim">-</strong></div>
+                <div><small class="text-muted d-block">Program Studi</small><strong id="profileProdi">-</strong></div>
+              </div>
+              <button class="btn btn-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#editProfileModal"><i class="fas fa-edit me-1"></i>Edit Profil</button>
+              <button class="btn btn-outline-secondary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#changePasswordModal"><i class="fas fa-key me-1"></i>Ubah Password</button>
+            </div>
+          </div>
+
+          <div class="card shadow-sm border-0 rounded-3 mt-4">
+            <div class="card-header bg-white py-3"><h6 class="mb-0"><i class="fas fa-shield-alt me-1"></i>Kekuatan Password</h6></div>
+            <div class="card-body">
+              <div class="d-flex gap-1 mb-2" id="pwBars">
+                <div class="pw-bar flex-fill bg-secondary" data-level="1"></div>
+                <div class="pw-bar flex-fill bg-secondary" data-level="2"></div>
+                <div class="pw-bar flex-fill bg-secondary" data-level="3"></div>
+                <div class="pw-bar flex-fill bg-secondary" data-level="4"></div>
+                <div class="pw-bar flex-fill bg-secondary" data-level="5"></div>
+              </div>
+              <div class="pw-label text-center text-muted" id="pwLabel">Masukkan password baru</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8" id="akademikSection">
+          <div class="row g-3 mb-4" id="statsRow">
+            <div class="col-4 col-md-2">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
+                <div class="text-primary small fw-bold">IPK</div>
+                <h4 class="mb-0 text-primary fw-bold" id="statIpk">-</h4>
+              </div>
+            </div>
+            <div class="col-4 col-md-2">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
+                <div class="text-info small fw-bold">SKS</div>
+                <h4 class="mb-0 text-info fw-bold" id="statSks">-</h4>
+              </div>
+            </div>
+            <div class="col-4 col-md-2">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
+                <div class="text-secondary small fw-bold">Tugas</div>
+                <h4 class="mb-0 text-secondary fw-bold" id="statTotalTugas">-</h4>
+              </div>
+            </div>
+            <div class="col-4 col-md-2">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
+                <div class="text-success small fw-bold">Selesai</div>
+                <h4 class="mb-0 text-success fw-bold" id="statSelesai">-</h4>
+              </div>
+            </div>
+            <div class="col-4 col-md-2">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
+                <div class="text-warning small fw-bold">Belum</div>
+                <h4 class="mb-0 text-warning fw-bold" id="statBelum">-</h4>
+              </div>
+            </div>
+            <div class="col-4 col-md-2">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
+                <div class="text-danger small fw-bold">Lewat</div>
+                <h4 class="mb-0 text-danger fw-bold" id="statLewat">-</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white py-3"><h6 class="mb-0"><i class="fas fa-calendar-day me-1"></i>Jadwal Hari Ini</h6></div>
+                <div class="card-body" id="todaySchedule">
+                  <div class="text-muted small text-center py-3">Memuat jadwal...</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white py-3"><h6 class="mb-0"><i class="fas fa-clock me-1"></i>Tugas Mendatang</h6></div>
+                <div class="card-body" id="upcomingTasks">
+                  <div class="text-muted small text-center py-3">Memuat tugas...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4 mt-1">
+            <div class="col-md-7">
+              <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-white py-3"><h6 class="mb-0"><i class="fas fa-chart-pie me-1"></i>Progress per Mata Kuliah</h6></div>
+                <div class="card-body" id="progressMatkul">
+                  <div class="text-muted small text-center py-3">Memuat progress...</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-white py-3"><h6 class="mb-0"><i class="fas fa-chart-bar me-1"></i>IPK per Semester</h6></div>
+                <div class="card-body" id="ipkSemester">
+                  <div class="text-muted small text-center py-3">Memuat data nilai...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title"><i class="fas fa-edit me-1"></i>Edit Profil</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <form id="editProfileForm">
+        <div class="modal-body">
+          <div class="mb-3"><label class="form-label small">Nama Lengkap</label><input type="text" class="form-control" id="editName" required></div>
+          <div class="mb-3"><label class="form-label small">NIM</label><input type="text" class="form-control" id="editNim"></div>
+          <div class="mb-3"><label class="form-label small">Program Studi</label><input type="text" class="form-control" id="editProdi"></div>
+          <div id="editProfileError" class="text-danger small d-none"></div>
+        </div>
+        <div class="modal-footer"><button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Simpan</button></div>
+      </form>
+    </div></div>
+  </div>
+
+  <div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title"><i class="fas fa-key me-1"></i>Ubah Password</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <form id="changePasswordForm">
+        <div class="modal-body">
+          <div class="mb-3"><label class="form-label small">Password Lama</label><input type="password" class="form-control" id="oldPassword" required></div>
+          <div class="mb-3"><label class="form-label small">Password Baru</label><input type="password" class="form-control" id="newPassword" required></div>
+          <div class="mb-3"><label class="form-label small">Konfirmasi Password Baru</label><input type="password" class="form-control" id="confirmPassword" required></div>
+          <div id="changePasswordError" class="text-danger small d-none"></div>
+        </div>
+        <div class="modal-footer"><button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Ubah Password</button></div>
+      </form>
+    </div></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

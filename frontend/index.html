@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduTrack - Aplikasi Manajemen Akademik Mahasiswa</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-primary shadow fixed-top" data-bs-theme="dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="fas fa-graduation-cap me-2"></i>EduTrack</a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#taskmanager">Task Manager</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2" id="navAuth">
+          <span id="navUserName" class="text-white d-none"></span>
+          <div class="dropdown d-none" id="navMenuLoggedIn">
+            <button class="btn btn-outline-light btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+              <i class="fas fa-user me-1"></i>Menu
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+              <li><a class="dropdown-item" href="taskmanager.html"><i class="fas fa-th-large me-2"></i>Task Manager</a></li>
+              <li><a class="dropdown-item" href="tugas.html"><i class="fas fa-tasks me-2"></i>Tugas</a></li>
+              <li><a class="dropdown-item" href="jadwal.html"><i class="fas fa-calendar-alt me-2"></i>Jadwal</a></li>
+              <li><a class="dropdown-item" href="nilai.html"><i class="fas fa-chart-line me-2"></i>Nilai</a></li>
+              <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Profil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" id="btnLogout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </div>
+          <a id="btnLogin" class="btn btn-outline-light btn-sm" href="login.html"><i class="fas fa-sign-in-alt me-1"></i>Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="hero-section text-white pt-5">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <p class="text-uppercase fw-semibold mb-2" style="letter-spacing:2px;opacity:0.8;">Platform Akademik Terintegrasi</p>
+          <h1 class="hero-title mb-3">Kelola Perkuliahanmu <br>dengan <span style="color:#ffc107;">Satu Sentuhan</span></h1>
+          <p class="hero-subtitle mb-4">Pantau tugas, jadwal kuliah, dan nilai akademik dalam satu dashboard. Solusi cerdas untuk mahasiswa modern.</p>
+          <a href="login.html" class="btn btn-warning fw-bold btn-lg px-4 me-2"><i class="fas fa-rocket me-2"></i>Mulai Sekarang</a>
+          <a href="#about" class="btn btn-outline-light btn-lg px-4"><i class="fas fa-info-circle me-2"></i>Pelajari Lebih Lanjut</a>
+        </div>
+        <div class="col-lg-6 text-center">
+          <img src="../img/mahasiswa2.jpeg" alt="EduTrack Illustration" class="hero-illustration shadow-lg">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-5 bg-white">
+    <div class="container py-4">
+      <h5 class="text-primary fw-semibold mb-1">#Tentang EduTrack</h5>
+      <h2 class="section-title fw-bold mb-4">Mengapa Memilih EduTrack?</h2>
+      <p class="text-muted mb-4" style="max-width:700px;">EduTrack adalah platform manajemen akademik yang dirancang khusus untuk membantu mahasiswa mengatur perkuliahan mereka secara efisien.</p>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="d-flex gap-3">
+            <div class="about-icon"><i class="fas fa-tasks"></i></div>
+            <div><h6 class="fw-bold">Manajemen Tugas</h6><p class="text-muted small mb-0">Catat dan pantau setiap tugas dengan prioritas, deadline, dan status.</p></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="d-flex gap-3">
+            <div class="about-icon"><i class="fas fa-calendar-alt"></i></div>
+            <div><h6 class="fw-bold">Jadwal Kuliah</h6><p class="text-muted small mb-0">Lihat jadwal kuliah dalam tampilan grid yang rapi dan mudah dibaca.</p></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="d-flex gap-3">
+            <div class="about-icon"><i class="fas fa-chart-line"></i></div>
+            <div><h6 class="fw-bold">Monitoring Nilai</h6><p class="text-muted small mb-0">Pantau perkembangan nilai dan IPK setiap semester secara real-time.</p></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="d-flex gap-3">
+            <div class="about-icon"><i class="fas fa-mobile-alt"></i></div>
+            <div><h6 class="fw-bold">Akses Mudah</h6><p class="text-muted small mb-0">Tampilan responsif yang bisa diakses dari mana saja dan kapan saja.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-5">
+    <div class="container py-4">
+      <h2 class="section-title fw-bold mb-2 text-center">Fitur Utama</h2>
+      <p class="text-muted text-center mb-5" style="max-width:600px;margin:0 auto;">Semua fitur yang kamu butuhkan untuk mengelola perkuliahan dalam satu platform.</p>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <a href="login.html" class="feature-card d-block">
+            <div class="card border-0 shadow-sm h-100 p-4">
+              <div class="card-body text-center">
+                <div class="feature-icon icon-tugas mx-auto"><i class="fas fa-tasks"></i></div>
+                <h5 class="fw-bold">Monitoring Nilai</h5>
+                <p class="text-muted small">Pantau nilai dan IPK setiap semester secara visual dan detail.</p>
+                <span class="text-primary fw-semibold small">Mulai Sekarang <i class="fas fa-arrow-right arrow-icon ms-1"></i></span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a href="login.html" class="feature-card d-block">
+            <div class="card border-0 shadow-sm h-100 p-4">
+              <div class="card-body text-center">
+                <div class="feature-icon icon-jadwal mx-auto"><i class="fas fa-calendar-alt"></i></div>
+                <h5 class="fw-bold">Jadwal Kuliah</h5>
+                <p class="text-muted small">Atur dan lihat jadwal kuliah dengan tampilan kalender interaktif.</p>
+                <span class="text-primary fw-semibold small">Mulai Sekarang <i class="fas fa-arrow-right arrow-icon ms-1"></i></span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a href="login.html" class="feature-card d-block">
+            <div class="card border-0 shadow-sm h-100 p-4">
+              <div class="card-body text-center">
+                <div class="feature-icon icon-nilai mx-auto"><i class="fas fa-chart-line"></i></div>
+                <h5 class="fw-bold">Manajemen Tugas</h5>
+                <p class="text-muted small">Kelola tugas kuliah dengan prioritas, deadline, dan status.</p>
+                <span class="text-primary fw-semibold small">Mulai Sekarang <i class="fas fa-arrow-right arrow-icon ms-1"></i></span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Task Manager CTA -->
+  <section id="taskmanager" class="py-5 bg-white">
+    <div class="container py-4 text-center">
+      <h2 class="section-title fw-bold mb-2 text-center">Task Manager</h2>
+      <p class="text-muted mb-4" style="max-width:600px;margin:0 auto;">Kelola semua tugas, jadwal, dan nilai akademikmu dari satu dashboard terpadu.</p>
+      <!-- <div class="row justify-content-center g-4 mb-4">
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100 p-3">
+            <div class="card-body text-center">
+              <div class="feature-icon icon-tugas mx-auto" style="width:56px;height:56px;font-size:1.3rem;"><i class="fas fa-tasks"></i></div>
+              <h5 class="fw-bold mt-2">Manajemen Tugas</h5>
+              <p class="text-muted small">Catat, prioritaskan, dan pantau tugas kuliahmu.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100 p-3">
+            <div class="card-body text-center">
+              <div class="feature-icon icon-jadwal mx-auto" style="width:56px;height:56px;font-size:1.3rem;"><i class="fas fa-calendar-alt"></i></div>
+              <h5 class="fw-bold mt-2">Jadwal Kuliah</h5>
+              <p class="text-muted small">Lihat jadwal kuliah dalam tampilan kalender grid.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100 p-3">
+            <div class="card-body text-center">
+              <div class="feature-icon icon-nilai mx-auto" style="width:56px;height:56px;font-size:1.3rem;"><i class="fas fa-chart-line"></i></div>
+              <h5 class="fw-bold mt-2">Nilai & IPK</h5>
+              <p class="text-muted small">Pantau perkembangan nilai dan IPK setiap semester.</p>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <a href="login.html" class="btn btn-primary btn-lg px-5" id="ctaTaskManager"><i class="fas fa-rocket me-2"></i>Buka Task Manager</a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter" class="bg-primary py-5 text-white">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-md-8 col-lg-6">
+          <h3 class="fw-bold mb-2"><i class="fas fa-envelope-open-text me-2"></i>Dapatkan Update Terbaru</h3>
+          <p class="mb-4 opacity-75">Daftarkan email dan jadilah yang pertama tahu saat fitur baru EduTrack dirilis. Gratis, tanpa spam.</p>
+          <div id="newsletterAlert" class="alert py-2 small mb-2" style="display: none"></div>
+          <div class="input-group mb-3 shadow-sm">
+            <input type="email" id="newsletterEmail" class="form-control form-control-lg" placeholder="Masukkan email kamu..." />
+            <button id="btnSubscribe" type="button" class="btn btn-warning fw-bold">Subscribe <i class="fas fa-paper-plane ms-1"></i></button>
+          </div>
+          <small class="opacity-75"> <i class="fas fa-shield-alt me-1"></i>Privasi terjaga. Unsubscribe kapan saja. </small>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /NEWSLETTER -->
+
+  <!-- CONTACT -->
+  <section id="contact" class="container py-5">
+    <h2 class="section-title fw-bold mb-4">Hubungi Kami</h2>
+    <div class="row g-4">
+      <div class="col-md-5">
+        <div class="bg-white rounded-3 shadow-sm p-4 h-100">
+          <h6 class="fw-bold mb-3">Info Kontak</h6>
+          <p class="mb-3">
+            <i class="fas fa-envelope text-primary me-2"></i><strong>Email</strong><br />
+            <span class="text-muted ms-4">Kelompk3@gmail.com</span>
+          </p>
+          <p class="mb-3">
+            <i class="fab fa-whatsapp text-primary me-2"></i><strong>WhatsApp</strong><br />
+            <span class="text-muted ms-4">+62 812-3456-7890</span>
+          </p>
+          <p class="mb-3">
+            <i class="fab fa-instagram text-primary me-2"></i><strong>Instagram</strong><br />
+            <span class="text-muted ms-4">@edutrack.id</span>
+          </p>
+          <p class="mb-0">
+            <i class="fab fa-github text-primary me-2"></i><strong>GitHub</strong><br />
+            <span class="text-muted ms-4">github.com/marioobe/edutrack</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="bg-light rounded-3 shadow-sm p-4 h-100">
+          <h6 class="fw-bold mb-3">Kirim Pesan</h6>
+          <div id="contactAlert" class="alert py-2 small mb-3" style="display: none"></div>
+          <input type="text" id="contactName" class="form-control mb-3" placeholder="Nama Lengkap" />
+          <input type="email" id="contactEmail" class="form-control mb-3" placeholder="Alamat Email" />
+          <textarea id="contactMessage" class="form-control mb-3" rows="3" placeholder="Tulis pesanmu..."></textarea>
+          <button id="btnKirimPesan" type="button" class="btn btn-primary">Kirim Pesan <i class="fas fa-paper-plane ms-1"></i></button>
+          <p class="small text-muted mt-2 mb-0">*Kami akan merespon dalam 1×24 jam</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /CONTACT -->
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5 class="fw-bold mb-3"><i class="fas fa-graduation-cap me-2"></i>EduTrack</h5>
+          <p class="small text-white-50 mb-3">Platform manajemen akademik untuk membantu mahasiswa mengatur perkuliahan dengan lebih efisien dan terstruktur.</p>
+          <h6 class="fw-semibold mb-2">Ikuti Kami</h6>
+          <div class="d-flex gap-2">
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <h6 class="fw-bold mb-3">Navigasi</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="index.html" class="footer-link">Home</a></li>
+            <li class="mb-2"><a href="taskmanager.html" class="footer-link">Task Manager</a></li>
+            <li class="mb-2"><a href="tugas.html" class="footer-link">Tugas</a></li>
+            <li class="mb-2"><a href="jadwal.html" class="footer-link">Jadwal</a></li>
+            <li class="mb-2"><a href="nilai.html" class="footer-link">Nilai</a></li>
+            <li class="mb-2"><a href="profile.html" class="footer-link">Profil</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h6 class="fw-bold mb-3">Fitur</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="login.html" class="footer-link">Manajemen Tugas</a></li>
+            <li class="mb-2"><a href="login.html" class="footer-link">Jadwal Kuliah</a></li>
+            <li class="mb-2"><a href="login.html" class="footer-link">Monitoring Nilai</a></li>
+            <li class="mb-2"><a href="login.html" class="footer-link">Dashboard Akademik</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h6 class="fw-bold mb-3">Kontak Kami</h6>
+          <ul class="list-unstyled small text-white-50">
+            <li class="mb-2"><i class="fas fa-envelope me-2"></i>support@edutrack.ac.id</li>
+            <li class="mb-2"><i class="fas fa-phone me-2"></i>(021) 1234-5678</li>
+            <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>Jakarta, Indonesia</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="border-secondary mt-4" />
+        <div class="text-center small text-secondary">&copy; 2026 EduTrack — Dibuat dengan <i class="fas fa-heart text-danger mx-1"></i> Oleh Kelompok 3.</div>
+      </div>
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
