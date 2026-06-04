@@ -47,10 +47,12 @@ edutrack1/
 │   │   ├── profile.js
 │   │   ├── register.js
 │   │   ├── taskmanager.js
-│   │   └── tugas.js
+│   │   ├── tugas.js
+│   │   └── broadcast.js
 │   ├── auth-check.js             # Middleware auth sisi frontend
 │   ├── style.css                 # Shared styles
-│   └── *.html                    # Halaman aplikasi
+│   ├── broadcast.html            # Halaman kirim newsletter
+│   └── *.html                    # Halaman aplikasi lainnya
 ├── database/
 │   └── edutrack_db.sql           # Schema database
 ├── docs/
@@ -95,7 +97,13 @@ DB_PASSWORD=
 DB_NAME=edutrack1_db
 PORT=3000
 JWT_SECRET=your_jwt_secret_key_change_this
+
+# SMTP (Gmail) — untuk fitur broadcast newsletter
+# SMTP_EMAIL=your.email@gmail.com
+# SMTP_PASSWORD=your_app_password
 ```
+
+> **Untuk Gmail App Password:** Buka [Google App Passwords](https://myaccount.google.com/apppasswords), buat password untuk Mail, lalu isikan ke `SMTP_PASSWORD`.
 
 ### 5. Jalankan server
 
@@ -137,7 +145,9 @@ Base URL: `http://localhost:3000/api`
 | PUT    | /api/nilai/:id        | ✅   | Edit nilai                 |
 | DELETE | /api/nilai/:id        | ✅   | Hapus nilai                |
 | POST   | /api/contact          | -    | Kirim pesan kontak         |
-| POST   | /api/newsletter/subscribe | - | Berlangganan newsletter |
+| GET    | /api/newsletter/subscribers | ✅ | Ambil daftar subscriber  |
+| POST   | /api/newsletter/send      | ✅ | Kirim newsletter ke semua subscriber |
+| POST   | /api/newsletter/subscribe | -  | Berlangganan newsletter |
 
 ## Screenshots
 
