@@ -351,9 +351,9 @@ Detail lengkap: [docs/testing-checklist.md](docs/testing-checklist.md)
 |----------|-------|
 | ![Features](img/Features.png) | ![About](img/About.png) |
 
-| Contact | Login |
-|---------|-------|
-| ![Contact](img/Contact.png) | ![Login](img/Login.png) |
+| Contact |
+|---------|
+| ![Contact](img/Contact.png) |
 
 ## Dibuat Oleh
 
