@@ -117,8 +117,8 @@ const toggleTask = async (req, res) => {
 
     const newDone = !existing[0].is_done;
     await pool.execute(
-      'UPDATE tasks SET is_done = ?, is_submitted = IF(? = 0, 0, is_submitted) WHERE id = ?',
-      [newDone, newDone, req.params.id]
+      'UPDATE tasks SET is_done = ? WHERE id = ?',
+      [newDone, req.params.id]
     );
 
     const [updated] = await pool.execute('SELECT * FROM tasks WHERE id = ?', [req.params.id]);
