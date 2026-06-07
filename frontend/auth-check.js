@@ -77,7 +77,7 @@
       const a = document.createElement('a');
       a.className = 'nav-link';
       a.href = 'broadcast.html';
-      a.textContent = 'Admin';
+      a.textContent = 'Broadcast';
       li.appendChild(a);
       profilItem.after(li);
     }

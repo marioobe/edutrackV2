@@ -17,7 +17,6 @@ app.use('/api/jadwal', require('./routes/jadwal'));
 app.use('/api/nilai', require('./routes/nilai'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/newsletter', require('./routes/newsletter'));
-app.use('/api/admin', require('./routes/admin'));
 
 app.listen(PORT, () => {
   console.log(`EduTrack server running on http://localhost:${PORT}`);
