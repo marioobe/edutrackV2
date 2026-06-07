@@ -14,16 +14,6 @@
 
     document.getElementById('ctaTaskManager')?.setAttribute('href', 'taskmanager.html');
     document.getElementById('btnMulaiSekarang')?.setAttribute('href', 'taskmanager.html');
-    const role = localStorage.getItem('userRole');
-    const adminLink = document.getElementById('navAdminLink');
-    if (adminLink) {
-      if (role === 'admin') {
-        adminLink.classList.remove('d-none');
-      } else {
-        adminLink.classList.add('d-none');
-      }
-    }
-
     document.getElementById('cardNilai')?.setAttribute('href', 'nilai.html');
     document.getElementById('cardJadwal')?.setAttribute('href', 'jadwal.html');
     document.getElementById('cardTugas')?.setAttribute('href', 'tugas.html');
@@ -37,7 +27,6 @@
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userEmail');
-    localStorage.removeItem('userRole');
     window.location.href = 'index.html';
   });
 
