@@ -2,6 +2,7 @@ const router = require('express').Router();
 const pool = require('../config/db');
 const nodemailer = require('nodemailer');
 const auth = require('../middleware/authMiddleware');
+const admin = require('../middleware/adminMiddleware');
 
 router.post('/subscribe', async (req, res) => {
   try {
@@ -19,7 +20,7 @@ router.post('/subscribe', async (req, res) => {
   }
 });
 
-router.get('/subscribers', auth, async (req, res) => {
+router.get('/subscribers', auth, admin, async (req, res) => {
   try {
     const [rows] = await pool.execute('SELECT id, email, created_at FROM subscribers ORDER BY created_at DESC');
     res.json(rows);
@@ -28,7 +29,7 @@ router.get('/subscribers', auth, async (req, res) => {
   }
 });
 
-router.post('/send', auth, async (req, res) => {
+router.post('/send', auth, admin, async (req, res) => {
   try {
     const { subject, message } = req.body;
     if (!subject || !message) {

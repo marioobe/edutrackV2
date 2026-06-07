@@ -28,6 +28,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     }
     localStorage.setItem('token', data.token);
     localStorage.setItem('userName', data.user.name);
+    localStorage.setItem('userRole', data.user.role || 'user');
     const next = params.get('next') || 'taskmanager.html';
     window.location.href = next;
   } catch (err) {

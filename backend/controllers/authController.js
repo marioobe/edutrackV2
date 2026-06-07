@@ -22,7 +22,7 @@ const register = async (req, res) => {
     );
 
     const token = jwt.sign(
-      { id: result.insertId, name, email },
+      { id: result.insertId, name, email, role: 'user' },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -30,7 +30,7 @@ const register = async (req, res) => {
     res.status(201).json({
       message: 'User registered successfully.',
       token,
-      user: { id: result.insertId, name, email },
+      user: { id: result.insertId, name, email, role: 'user' },
     });
   } catch (err) {
     res.status(500).json({ message: 'Server error.', error: err.message });
@@ -57,7 +57,7 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user.id, name: user.name, email: user.email },
+      { id: user.id, name: user.name, email: user.email, role: user.role || 'user' },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -65,7 +65,7 @@ const login = async (req, res) => {
     res.json({
       message: 'Login successful.',
       token,
-      user: { id: user.id, name: user.name, email: user.email },
+      user: { id: user.id, name: user.name, email: user.email, role: user.role || 'user' },
     });
   } catch (err) {
     res.status(500).json({ message: 'Server error.', error: err.message });
@@ -75,7 +75,7 @@ const login = async (req, res) => {
 const getProfile = async (req, res) => {
   try {
     const [rows] = await pool.execute(
-      'SELECT id, name, email, nim, prodi, foto_profil, created_at FROM users WHERE id = ?',
+      'SELECT id, name, email, nim, prodi, foto_profil, role, created_at FROM users WHERE id = ?',
       [req.user.id]
     );
     if (rows.length === 0) return res.status(404).json({ message: 'User not found.' });
@@ -108,10 +108,10 @@ const updateProfile = async (req, res) => {
       ]
     );
 
-    const [updated] = await pool.execute('SELECT id, name, email, nim, prodi, foto_profil, created_at FROM users WHERE id = ?', [req.user.id]);
+    const [updated] = await pool.execute('SELECT id, name, email, nim, prodi, foto_profil, role, created_at FROM users WHERE id = ?', [req.user.id]);
 
     const token = jwt.sign(
-      { id: updated[0].id, name: updated[0].name, email: updated[0].email },
+      { id: updated[0].id, name: updated[0].name, email: updated[0].email, role: updated[0].role || 'user' },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
