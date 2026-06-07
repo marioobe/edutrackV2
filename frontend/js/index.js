@@ -12,8 +12,14 @@
     navUserName.textContent = userName;
     navUserName.classList.remove('d-none');
 
-    const cta = document.getElementById('ctaTaskManager');
-    if (cta) cta.href = 'taskmanager.html';
+    document.getElementById('ctaTaskManager')?.setAttribute('href', 'taskmanager.html');
+    document.getElementById('btnMulaiSekarang')?.setAttribute('href', 'taskmanager.html');
+    document.getElementById('cardNilai')?.setAttribute('href', 'nilai.html');
+    document.getElementById('cardJadwal')?.setAttribute('href', 'jadwal.html');
+    document.getElementById('cardTugas')?.setAttribute('href', 'tugas.html');
+    document.getElementById('footerTugas')?.setAttribute('href', 'tugas.html');
+    document.getElementById('footerJadwal')?.setAttribute('href', 'jadwal.html');
+    document.getElementById('footerNilai')?.setAttribute('href', 'nilai.html');
   }
 
   btnLogout.addEventListener('click', function(e) {
