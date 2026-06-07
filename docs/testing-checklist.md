@@ -80,19 +80,19 @@
 
 | Page | Test | Status |
 |------|------|--------|
-| index.html | Navbar switches to logged-in state when token present | ⬜ |
-| index.html | Newsletter form submits correctly | ⬜ |
-| index.html | Contact form submits correctly | ⬜ |
-| index.html | "Buka Task Manager" redirects to login if no token | ⬜ |
-| login.html | ?expired=1 shows expired banner | ⬜ |
-| login.html | ?next=taskmanager.html redirects correctly | ⬜ |
-| login.html | Successful login stores token + userName | ⬜ |
-| register.html | Password mismatch shows error | ⬜ |
-| register.html | Successful register redirects to login | ⬜ |
-| tugas.html | Loads tasks, CRUD works, filters work | ⬜ |
-| jadwal.html | Calendar grid shows, CRUD works | ⬜ |
-| nilai.html | Grades load, IPK calculated, CRUD works | ⬜ |
-| profile.html | Profile loads, edit works, password change works | ⬜ |
-| taskmanager.html | Stats load correctly | ⬜ |
-| All protected pages | Redirect to login if no token | ⬜ |
-| All protected pages | Redirect to login?expired=1 if token expired | ⬜ |
+| index.html | Navbar switches to logged-in state when token present | ✅ |
+| index.html | Newsletter form submits correctly | ✅ |
+| index.html | Contact form submits correctly | ✅ |
+| index.html | "Buka Task Manager" redirects to login if no token | ✅ |
+| login.html | ?expired=1 shows expired banner | ✅ |
+| login.html | ?next=taskmanager.html redirects correctly | ✅ |
+| login.html | Successful login stores token + userName | ✅ |
+| register.html | Password mismatch shows error | ✅ |
+| register.html | Successful register redirects to login | ✅ |
+| tugas.html | Loads tasks, CRUD works, filters work | ✅ |
+| jadwal.html | Calendar grid shows, CRUD works | ✅ |
+| nilai.html | Grades load, IPK calculated, CRUD works | ✅ |
+| profile.html | Profile loads, edit works, password change works | ✅ |
+| taskmanager.html | Stats load correctly | ✅ |
+| All protected pages | Redirect to login if no token | ✅ |
+| All protected pages | Redirect to login?expired=1 if token expired | ✅ |
