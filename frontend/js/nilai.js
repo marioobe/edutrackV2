@@ -228,20 +228,21 @@ function resetForm() {
 }
 
 function populateSemesterOptions() {
-  const select = document.getElementById('nilaiSemester');
-  const currentVal = select.value;
-  select.innerHTML = '<option value="">Pilih Semester</option>';
+  const datalist = document.getElementById('semesterDaftar');
+  const input = document.getElementById('nilaiSemester');
+  datalist.innerHTML = '';
   const semesters = new Set();
   allNilai.forEach(n => { if (n.semester) semesters.add(n.semester); });
-  const predefined = ['Ganjil 2024/2025','Genap 2024/2025','Ganjil 2025/2026','Genap 2025/2026'];
-  predefined.forEach(s => semesters.add(s));
+  for (let t = 2018; t < 2035; t++) {
+    semesters.add(`Ganjil ${t}/${t+1}`);
+    semesters.add(`Genap ${t}/${t+1}`);
+  }
   Array.from(semesters).sort().forEach(s => {
     const opt = document.createElement('option');
     opt.value = s;
-    opt.textContent = s;
-    select.appendChild(opt);
+    datalist.appendChild(opt);
   });
-  select.value = currentVal;
+  input.value = '';
 }
 
 async function editNilai(id) {
@@ -258,12 +259,12 @@ async function editNilai(id) {
     document.getElementById('nilaiMatkul').value = n.mata_kuliah || '';
     document.getElementById('nilaiSKS').value = n.sks || 1;
     document.getElementById('nilaiAngka').value = n.nilai_angka !== null && n.nilai_angka !== undefined ? n.nilai_angka : '';
-    document.getElementById('nilaiSemester').value = n.semester || '';
     document.getElementById('nilaiModalTitle').innerHTML = '<i class="fas fa-edit me-2"></i>Edit Nilai';
     document.getElementById('nilaiSubmitBtn').innerHTML = '<i class="fas fa-save me-1"></i>Update';
     document.getElementById('nilaiError').classList.add('d-none');
     previewGrade();
     populateSemesterOptions();
+    document.getElementById('nilaiSemester').value = n.semester || '';
     bootstrap.Modal.getInstance(document.getElementById('nilaiModal'));
     const modal = new bootstrap.Modal(document.getElementById('nilaiModal'));
     modal.show();

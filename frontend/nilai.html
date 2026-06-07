@@ -183,9 +183,8 @@
             </div>
             <div class="mb-3">
               <label class="form-label small fw-semibold">Semester <span class="text-danger">*</span></label>
-              <select class="form-select" id="nilaiSemester" required>
-                <option value="">Pilih Semester</option>
-              </select>
+              <input class="form-control" list="semesterDaftar" id="nilaiSemester" placeholder="Ketik atau pilih semester..." required>
+              <datalist id="semesterDaftar"></datalist>
             </div>
             <div id="nilaiError" class="alert alert-danger small d-none py-2 mb-0"></div>
           </div>
