@@ -10,8 +10,9 @@
   <link rel="stylesheet" href="css/tugas.css">
   <script src="auth-check.js"></script>
 </head>
-<body>
-  <nav class="navbar navbar-expand-lg bg-dark shadow fixed-top" data-bs-theme="dark">
+<body class="theme-dark">
+<script>if(localStorage.getItem('edutrack-theme')==='light')document.body.classList.remove('theme-dark');</script>
+  <nav class="navbar navbar-expand-lg navbar-dark-blue shadow fixed-top" data-bs-theme="dark">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html"><i class="fas fa-graduation-cap me-2"></i>EduTrack</a>
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
@@ -27,6 +28,7 @@
           <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
         </ul>
         <div class="d-flex align-items-center gap-2">
+          <button id="btnThemeToggle" class="btn btn-outline-light btn-sm" onclick="toggleTheme()" title="Mode Terang"><i class="fas fa-sun"></i></button>
           <span id="navUserName" class="text-white fw-semibold"></span>
           <button id="btnLogout" class="btn btn-outline-light btn-sm"><i class="fas fa-sign-out-alt me-1"></i>Logout</button>
         </div>
@@ -34,7 +36,7 @@
     </div>
   </nav>
 
-  <div class="container py-4" style="margin-top:88px;">
+  <div class="container py-4" style="margin-top:24px;">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h4 class="mb-0 fw-bold"><i class="fas fa-list-check me-2 text-primary"></i>Manajemen Tugas</h4>
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal" id="btnTambahTugas"><i class="fas fa-plus me-1"></i>Tambah Tugas</button>
@@ -46,7 +48,7 @@
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <div class="text-muted small fw-semibold">Total Tugas</div>
-              <div class="fs-3 fw-bold text-dark" id="totalTasks">0</div>
+              <div class="fs-3 fw-bold" id="totalTasks">0</div>
             </div>
             <div class="bg-primary bg-opacity-10 p-3 rounded"><i class="fas fa-tasks text-primary fs-4"></i></div>
           </div>
@@ -184,5 +186,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/tugas.js"></script>
+  <script src="js/theme-toggle.js"></script>
 </body>
 </html>

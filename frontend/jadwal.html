@@ -10,9 +10,10 @@
   <link rel="stylesheet" href="css/jadwal.css">
   <script src="auth-check.js"></script>
 </head>
-<body class="bg-light">
+<body class="theme-dark">
+<script>if(localStorage.getItem('edutrack-theme')==='light')document.body.classList.remove('theme-dark');</script>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-dark shadow fixed-top" data-bs-theme="dark">
+  <nav class="navbar navbar-expand-lg navbar-dark-blue shadow fixed-top" data-bs-theme="dark">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html"><i class="fas fa-graduation-cap me-2"></i>EduTrack</a>
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
@@ -28,6 +29,7 @@
           <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
         </ul>
         <div class="d-flex align-items-center gap-2">
+          <button id="btnThemeToggle" class="btn btn-outline-light btn-sm" onclick="toggleTheme()" title="Mode Terang"><i class="fas fa-sun"></i></button>
           <span id="navUserName" class="text-white fw-semibold"></span>
           <button id="btnLogout" class="btn btn-outline-light btn-sm"><i class="fas fa-sign-out-alt me-1"></i>Logout</button>
         </div>
@@ -36,7 +38,7 @@
   </nav>
 
   <!-- Main Content -->
-  <div class="container py-4" style="margin-top:88px;">
+  <div class="container py-4" style="margin-top:24px;">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div>
@@ -109,9 +111,9 @@
   <div class="modal fade" id="modalTambahJadwal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
+        <div class="modal-header border-0">
           <h5 class="modal-title"><i class="fas fa-plus me-2"></i>Tambah Jadwal</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <div id="jadwalAlert"></div>
@@ -169,7 +171,7 @@
   <div class="modal fade" id="modalEditJadwal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header bg-warning text-dark">
+        <div class="modal-header bg-warning">
           <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Jadwal</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
@@ -226,5 +228,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/jadwal.js"></script>
+  <script src="js/theme-toggle.js"></script>
 </body>
 </html>

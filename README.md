@@ -33,9 +33,11 @@ Platform ini dibangun sebagai proyek pengembangan web menggunakan pendekatan **V
 | **Profil Akademik** | Ringkasan IPK, SKS, progress tugas, jadwal hari ini, dan grafik IPK per semester. Upload foto profil. |
 | **Task Manager** | Dashboard ringkasan stats tugas aktif, jumlah jadwal, dan IPK. |
 | **Autentikasi JWT** | Register, login, dan manajemen session dengan token. Proteksi halaman via middleware frontend & backend. |
+| **Dark / Light Theme** | Toggle tema gelap/terang dengan preferensi tersimpan di localStorage. Animasi card fadeInUp + hover lift. |
 | **Newsletter** | Form subscribe newsletter dengan notifikasi email via SMTP (Gmail). |
 | **Kontak** | Form kirim pesan yang tersimpan di database. |
 | **Responsive Design** | Tampilan mobile-friendly dengan Bootstrap 5. |
+| **Indikasi Navigasi** | Active nav-link dengan underline biru via pseudo-element, konsisten tanpa shifting. |
 
 ## Halaman Aplikasi
 
@@ -146,13 +148,14 @@ edutrack1/
 │   │   ├── login.js
 │   │   ├── register.js
 │   │   ├── tugas.js
-│   │   ├── jadwal.js
-│   │   ├── nilai.js
-│   │   ├── profile.js
-│   │   ├── taskmanager.js
-│   │   └── broadcast.js
+│   │ ├── jadwal.js
+│   │ ├── nilai.js
+│   │ ├── profile.js
+│   │ ├── taskmanager.js
+│   │ ├── broadcast.js
+│   │ └── theme-toggle.js      # Dark/light theme toggle
 │   ├── auth-check.js          # Middleware auth frontend
-│   ├── style.css              # Shared styles (navbar, footer)
+│   ├── style.css              # Shared styles (tema, animasi, navbar)
 │   ├── index.html             # Landing page
 │   ├── login.html             # Login
 │   ├── register.html          # Register
