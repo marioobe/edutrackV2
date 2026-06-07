@@ -16,27 +16,13 @@
     if (payload.exp && payload.exp < now) {
       localStorage.removeItem('token');
       localStorage.removeItem('userName');
-      localStorage.removeItem('userRole');
       window.location.href = 'login.html?expired=1';
       return;
-    }
-
-    if (payload.role) {
-      localStorage.setItem('userRole', payload.role);
     }
   } catch {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
-    localStorage.removeItem('userRole');
     window.location.href = 'login.html';
-    return;
-  }
-
-  const currentPage = window.location.pathname.split('/').pop();
-  const role = localStorage.getItem('userRole') || 'user';
-
-  if (currentPage === 'broadcast.html' && role !== 'admin') {
-    window.location.href = 'taskmanager.html';
     return;
   }
 
@@ -67,22 +53,6 @@
       .catch(() => {});
   }
 
-  if (role === 'admin') {
-    const nav = document.querySelector('.navbar-nav');
-    const profilItem = nav?.querySelector('a[href="profile.html"]')?.closest('.nav-item');
-    const existingBroadcast = nav?.querySelector('a[href="broadcast.html"]');
-    if (nav && profilItem && !existingBroadcast) {
-      const li = document.createElement('li');
-      li.className = 'nav-item';
-      const a = document.createElement('a');
-      a.className = 'nav-link';
-      a.href = 'broadcast.html';
-      a.textContent = 'Broadcast';
-      li.appendChild(a);
-      profilItem.after(li);
-    }
-  }
-
   const btnLogout = document.getElementById('btnLogout');
   if (btnLogout) {
     btnLogout.addEventListener('click', (e) => {
@@ -90,7 +60,6 @@
       localStorage.removeItem('token');
       localStorage.removeItem('userName');
       localStorage.removeItem('userEmail');
-      localStorage.removeItem('userRole');
       window.location.href = 'index.html';
     });
   }
