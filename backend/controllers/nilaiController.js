@@ -22,10 +22,13 @@ const addNilai = async (req, res) => {
     if (nilai_angka < 0 || nilai_angka > 100) {
       return res.status(400).json({ message: 'nilai_angka must be between 0 and 100.' });
     }
+    if (!semester) {
+      return res.status(400).json({ message: 'Semester harus dipilih.' });
+    }
 
     const [result] = await pool.execute(
       'INSERT INTO nilai (user_id, mata_kuliah, semester, sks, nilai_angka) VALUES (?, ?, ?, ?, ?)',
-      [req.user.id, mata_kuliah, semester || 1, sks || 2, nilai_angka]
+      [req.user.id, mata_kuliah, semester, sks || 2, nilai_angka]
     );
 
     const [nilai] = await pool.execute('SELECT * FROM nilai WHERE id = ?', [result.insertId]);
