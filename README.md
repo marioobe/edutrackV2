@@ -30,7 +30,7 @@ Platform ini dibangun sebagai proyek pengembangan web menggunakan pendekatan **V
 | **Manajemen Tugas** | Catat, prioritaskan (tinggi/sedang/rendah), dan pantau tugas kuliah dengan filter status, prioritas, dan mata kuliah. Dilengkapi indikator deadline (warning/danger). |
 | **Jadwal Kuliah** | Atur jadwal dalam tampilan grid kalender dengan deteksi bentrok otomatis. Tersedia tampilan mobile. |
 | **Monitoring Nilai** | Pantau nilai angka, huruf, bobot, dan IPK per semester dengan visualisasi distribusi grafik. |
-| **Profil Akademik** | Ringkasan IPK, SKS, progress tugas, jadwal hari ini, dan grafik IPK per semester. Upload foto profil. |
+| **Profil Akademik** | Ringkasan IPK, SKS, task completion rate, jadwal hari ini, hari tersibuk, progress per MK, dan grafik IPK per semester. Layout 3-baris ringkas dengan scroll internal. Upload foto profil. |
 | **Task Manager** | Dashboard ringkasan stats tugas aktif, jumlah jadwal, dan IPK. |
 | **Autentikasi JWT** | Register, login, dan manajemen session dengan token. Proteksi halaman via middleware frontend & backend. |
 | **Dark / Light Theme** | Toggle tema gelap/terang dengan preferensi tersimpan di localStorage. Animasi card fadeInUp + hover lift. |
@@ -50,7 +50,7 @@ Platform ini dibangun sebagai proyek pengembangan web menggunakan pendekatan **V
 | Manajemen Tugas | `tugas.html` | ✅ | CRUD tugas dengan filter dan progress |
 | Jadwal Kuliah | `jadwal.html` | ✅ | CRUD jadwal dengan kalender grid |
 | Monitoring Nilai | `nilai.html` | ✅ | CRUD nilai dengan IPK, distribusi, filter semester |
-| Profil | `profile.html` | ✅ | Edit profil, ganti password, upload foto, ringkasan akademik |
+| Profil | `profile.html` | ✅ | Edit profil, ganti password, upload foto, ringkasan akademik (task completion, hari tersibuk, progress MK, IPK semester) |
 | Broadcast | `broadcast.html` | ✅ | Kirim newsletter ke subscriber |
 
 ## Tech Stack
@@ -170,7 +170,7 @@ edutrack1/
 ├── docs/
 │   ├── API.md                 # Dokumentasi API lengkap
 │   └── testing-checklist.md   # Checklist testing
-├── img/                       # Gambar untuk landing page
+├── img/                       # Gambar untuk landing page (hero ilustrasi, screenshot)
 └── .gitignore
 ```
 

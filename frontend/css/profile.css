@@ -1,12 +1,13 @@
 body { background: #f0f2f5; }
+.extra-small { font-size: .7rem; }
 .stat-card { transition: transform .15s; border: none; border-radius: .5rem; }
 .stat-card:hover { transform: translateY(-3px); }
 .pw-bar { height: 6px; border-radius: 3px; transition: all .3s; }
 .pw-label { font-size: .8rem; font-weight: 600; }
 .progress-matkul { height: 8px; border-radius: 4px; }
-.schedule-item { border-left: 4px solid #0d6efd; padding-left: .75rem; margin-bottom: .75rem; }
+.schedule-item { border-left: 3px solid #0d6efd; padding-left: .5rem; margin-bottom: .5rem; }
 .schedule-item:last-child { margin-bottom: 0; }
-.task-upcoming { border-left: 4px solid #198754; padding: .5rem .75rem; margin-bottom: .5rem; border-radius: .35rem; }
+.task-upcoming { border-left: 3px solid #198754; padding: .35rem .5rem; margin-bottom: .35rem; border-radius: .3rem; }
 .task-upcoming.overdue { border-left-color: #dc3545; background: #fff5f5; }
 .ipk-bar { height: 12px; border-radius: 6px; }
 .profile-avatar { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; }

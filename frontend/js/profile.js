@@ -126,12 +126,12 @@ async function loadTodaySchedule() {
   const container = document.getElementById('todaySchedule');
   const today = getDayIndo();
   const res = await api(API + '/jadwal');
-  if (!res) { container.innerHTML = '<div class="text-muted small text-center py-3">Gagal memuat jadwal.</div>'; return; }
+  if (!res) { container.innerHTML = '<div class="text-muted small text-center py-2">Gagal memuat jadwal.</div>'; return; }
   const list = await res.json();
   const filtered = Array.isArray(list) ? list.filter(j => (j.hari || '').toLowerCase() === today) : [];
 
   if (filtered.length === 0) {
-    container.innerHTML = '<div class="text-muted small text-center py-3"><i class="fas fa-check-circle text-success me-1"></i>Tidak ada jadwal hari ini.</div>';
+    container.innerHTML = '<div class="text-muted small text-center py-2"><i class="fas fa-check-circle text-success me-1"></i>Tidak ada jadwal hari ini.</div>';
     return;
   }
 
@@ -150,7 +150,7 @@ async function loadTodaySchedule() {
 async function loadUpcomingTasks() {
   const container = document.getElementById('upcomingTasks');
   const res = await api(API + '/tasks');
-  if (!res) { container.innerHTML = '<div class="text-muted small text-center py-3">Gagal memuat tugas.</div>'; return; }
+  if (!res) { container.innerHTML = '<div class="text-muted small text-center py-2">Gagal memuat tugas.</div>'; return; }
   const list = await res.json();
   const pending = Array.isArray(list) ? list.filter(t => !t.is_done) : [];
   pending.sort((a, b) => {
@@ -160,7 +160,7 @@ async function loadUpcomingTasks() {
   const top = pending.slice(0, 6);
 
   if (top.length === 0) {
-    container.innerHTML = '<div class="text-muted small text-center py-3"><i class="fas fa-check-circle text-success me-1"></i>Semua tugas selesai!</div>';
+    container.innerHTML = '<div class="text-muted small text-center py-2"><i class="fas fa-check-circle text-success me-1"></i>Semua tugas selesai!</div>';
     return;
   }
 
@@ -169,10 +169,10 @@ async function loadUpcomingTasks() {
     const overdue = isOverdue(t.deadline);
     const div = document.createElement('div');
     div.className = 'task-upcoming bg-light' + (overdue ? ' overdue' : '');
-    div.innerHTML = '<div class="d-flex justify-content-between align-items-center"><span class="fw-semibold small">' +
-      esc(t.title || '-') + '</span><small class="text-muted">' + formatDate(t.deadline) + '</small></div>' +
-      (t.mata_kuliah ? '<small class="text-muted">' + esc(t.mata_kuliah) + '</small>' : '') +
-      (overdue ? '<small class="text-danger d-block"><i class="fas fa-exclamation-circle me-1"></i>Terlewat</small>' : '');
+    div.innerHTML = '<div class="d-flex justify-content-between align-items-center"><span class="fw-semibold extra-small">' +
+      esc(t.title || '-') + '</span><span class="extra-small text-muted">' + formatDate(t.deadline) + '</span></div>' +
+      (t.mata_kuliah ? '<div class="extra-small text-muted">' + esc(t.mata_kuliah) + '</div>' : '') +
+      (overdue ? '<div class="extra-small text-danger"><i class="fas fa-exclamation-circle me-1"></i>Terlewat</div>' : '');
     container.appendChild(div);
   });
 }
@@ -180,10 +180,10 @@ async function loadUpcomingTasks() {
 async function loadProgressMatkul() {
   const container = document.getElementById('progressMatkul');
   const res = await api(API + '/tasks');
-  if (!res) { container.innerHTML = '<div class="text-muted small text-center py-3">Gagal memuat data.</div>'; return; }
+  if (!res) { container.innerHTML = '<div class="text-muted small text-center py-2">Gagal memuat data.</div>'; return; }
   const list = await res.json();
   if (!Array.isArray(list) || list.length === 0) {
-    container.innerHTML = '<div class="text-muted small text-center py-3">Belum ada tugas.</div>'; return;
+    container.innerHTML = '<div class="text-muted small text-center py-2">Belum ada tugas.</div>'; return;
   }
 
   const groups = {};
@@ -199,10 +199,10 @@ async function loadProgressMatkul() {
     const pct = Math.round((val.done / val.total) * 100);
     const color = pct === 100 ? 'bg-success' : pct >= 50 ? 'bg-primary' : pct >= 25 ? 'bg-warning' : 'bg-danger';
     const div = document.createElement('div');
-    div.className = 'mb-3';
-    div.innerHTML = '<div class="d-flex justify-content-between small mb-1"><span class="fw-semibold">' + esc(mk) +
+    div.className = 'mb-2';
+    div.innerHTML = '<div class="d-flex justify-content-between extra-small mb-1"><span class="fw-semibold">' + esc(mk) +
       '</span><span>' + val.done + '/' + val.total + ' (' + pct + '%)</span></div>' +
-      '<div class="progress progress-matkul"><div class="progress-bar ' + color + '" role="progressbar" style="width:' + pct + '%"></div></div>';
+      '<div class="progress" style="height:6px;"><div class="progress-bar ' + color + '" role="progressbar" style="width:' + pct + '%"></div></div>';
     container.appendChild(div);
   });
 }
@@ -210,10 +210,10 @@ async function loadProgressMatkul() {
 async function loadIpkSemester() {
   const container = document.getElementById('ipkSemester');
   const res = await api(API + '/nilai');
-  if (!res) { container.innerHTML = '<div class="text-muted small text-center py-3">Gagal memuat data.</div>'; return; }
+  if (!res) { container.innerHTML = '<div class="text-muted small text-center py-2">Gagal memuat data.</div>'; return; }
   const list = await res.json();
   if (!Array.isArray(list) || list.length === 0) {
-    container.innerHTML = '<div class="text-muted small text-center py-3">Belum ada nilai.</div>'; return;
+    container.innerHTML = '<div class="text-muted small text-center py-2">Belum ada nilai.</div>'; return;
   }
 
   const groups = {};
@@ -242,10 +242,69 @@ async function loadIpkSemester() {
     const pct = Math.min((ipk / maxIpk) * 100, 100);
     const color = ipk >= 3.5 ? 'bg-success' : ipk >= 3.0 ? 'bg-primary' : ipk >= 2.5 ? 'bg-info' : ipk >= 2.0 ? 'bg-warning' : 'bg-danger';
     const div = document.createElement('div');
-    div.className = 'mb-3';
-    div.innerHTML = '<div class="d-flex justify-content-between small mb-1"><span class="fw-semibold">Semester ' + sem +
+    div.className = 'mb-2';
+    div.innerHTML = '<div class="d-flex justify-content-between extra-small mb-1"><span class="fw-semibold">Semester ' + sem +
       '</span><span>' + ipk.toFixed(2) + '</span></div>' +
-      '<div class="progress ipk-bar"><div class="progress-bar ' + color + '" role="progressbar" style="width:' + pct + '%"></div></div>';
+      '<div class="progress" style="height:6px;"><div class="progress-bar ' + color + '" role="progressbar" style="width:' + pct + '%"></div></div>';
+    container.appendChild(div);
+  });
+}
+
+async function loadTaskCompletion() {
+  const container = document.getElementById('taskCompletion');
+  const res = await api(API + '/tasks');
+  if (!res) { container.innerHTML = '<div class="text-muted small py-2">Gagal memuat data.</div>'; return; }
+  const list = await res.json();
+  if (!Array.isArray(list) || list.length === 0) {
+    container.innerHTML = '<div class="text-muted small py-2">Belum ada tugas.</div>'; return;
+  }
+  const total = list.length;
+  const done = list.filter(t => t.is_done).length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  container.innerHTML = '';
+  const div = document.createElement('div');
+  div.innerHTML = '<div class="h2 fw-bold text-primary mb-0">' + pct + '%</div>' +
+    '<div class="text-muted extra-small mb-2">selesai</div>' +
+    '<div class="progress mb-1" style="height:10px;"><div class="progress-bar bg-success" role="progressbar" style="width:' + pct + '%"></div></div>' +
+    '<div class="text-muted extra-small">' + done + '/' + total + ' tugas</div>';
+  container.appendChild(div);
+}
+
+async function loadBusiestDay() {
+  const container = document.getElementById('busiestDay');
+  const res = await api(API + '/jadwal');
+  if (!res) { container.innerHTML = '<div class="text-muted small text-center py-2">Gagal memuat data.</div>'; return; }
+  const list = await res.json();
+  if (!Array.isArray(list) || list.length === 0) {
+    container.innerHTML = '<div class="text-muted small text-center py-2">Belum ada jadwal.</div>'; return;
+  }
+  const dayOrder = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+  const dayLabels = { senin: 'Senin', selasa: 'Selasa', rabu: 'Rabu', kamis: 'Kamis', jumat: 'Jumat', sabtu: 'Sabtu' };
+  const hoursPerDay = {};
+  dayOrder.forEach(d => hoursPerDay[d] = 0);
+  list.forEach(j => {
+    const hari = (j.hari || '').toLowerCase();
+    if (!hoursPerDay.hasOwnProperty(hari)) return;
+    const mulai = j.jam_mulai || '00:00';
+    const selesai = j.jam_selesai || '00:00';
+    const [h1, m1] = mulai.split(':').map(Number);
+    const [h2, m2] = selesai.split(':').map(Number);
+    let durasi = (h2 + m2 / 60) - (h1 + m1 / 60);
+    if (durasi < 0) durasi += 24;
+    hoursPerDay[hari] += durasi;
+  });
+  const maxHours = Math.max(...Object.values(hoursPerDay), 1);
+  container.innerHTML = '';
+  dayOrder.forEach(day => {
+    const hours = hoursPerDay[day];
+    const pct = hours > 0 ? Math.min((hours / maxHours) * 100, 100) : 0;
+    const isMax = hours > 0 && hours === maxHours;
+    const barColor = isMax ? 'bg-primary' : 'bg-secondary';
+    const div = document.createElement('div');
+    div.className = 'd-flex align-items-center mb-1';
+    div.innerHTML = '<span class="extra-small fw-semibold flex-shrink-0" style="width:38px;">' + dayLabels[day] + '</span>' +
+      '<div class="progress flex-grow-1 mx-1" style="height:10px;"><div class="progress-bar ' + barColor + '" role="progressbar" style="width:' + pct + '%"></div></div>' +
+      '<span class="extra-small text-muted flex-shrink-0 text-end" style="width:32px;">' + hours.toFixed(1) + '</span>';
     container.appendChild(div);
   });
 }
@@ -357,3 +416,5 @@ loadTodaySchedule();
 loadUpcomingTasks();
 loadProgressMatkul();
 loadIpkSemester();
+loadTaskCompletion();
+loadBusiestDay();

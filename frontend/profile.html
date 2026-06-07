@@ -78,77 +78,96 @@
         </div>
 
         <div class="col-lg-8" id="akademikSection">
-          <div class="row g-3 mb-4" id="statsRow">
-            <div class="col-4 col-md-2">
-              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
-                <div class="text-primary small fw-bold">IPK</div>
-                <h4 class="mb-0 text-primary fw-bold" id="statIpk">-</h4>
+          <!-- Row 1: Ringkasan Statistik (padat) -->
+          <div class="row g-2 mb-3" id="statsRow">
+            <div class="col-6 col-md-4">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-2 h-100">
+                <div class="text-primary extra-small fw-bold">IPK</div>
+                <h5 class="mb-0 text-primary fw-bold" id="statIpk">-</h5>
               </div>
             </div>
-            <div class="col-4 col-md-2">
-              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
-                <div class="text-info small fw-bold">SKS</div>
-                <h4 class="mb-0 text-info fw-bold" id="statSks">-</h4>
+            <div class="col-6 col-md-4">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-2 h-100">
+                <div class="text-info extra-small fw-bold">SKS</div>
+                <h5 class="mb-0 text-info fw-bold" id="statSks">-</h5>
               </div>
             </div>
-            <div class="col-4 col-md-2">
-              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
-                <div class="text-secondary small fw-bold">Tugas</div>
-                <h4 class="mb-0 text-secondary fw-bold" id="statTotalTugas">-</h4>
+            <div class="col-6 col-md-4">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-2 h-100">
+                <div class="text-secondary extra-small fw-bold">Tugas</div>
+                <h5 class="mb-0 text-secondary fw-bold" id="statTotalTugas">-</h5>
               </div>
             </div>
-            <div class="col-4 col-md-2">
-              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
-                <div class="text-success small fw-bold">Selesai</div>
-                <h4 class="mb-0 text-success fw-bold" id="statSelesai">-</h4>
+            <div class="col-6 col-md-4">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-2 h-100">
+                <div class="text-success extra-small fw-bold">Selesai</div>
+                <h5 class="mb-0 text-success fw-bold" id="statSelesai">-</h5>
               </div>
             </div>
-            <div class="col-4 col-md-2">
-              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
-                <div class="text-warning small fw-bold">Belum</div>
-                <h4 class="mb-0 text-warning fw-bold" id="statBelum">-</h4>
+            <div class="col-6 col-md-4">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-2 h-100">
+                <div class="text-warning extra-small fw-bold">Belum</div>
+                <h5 class="mb-0 text-warning fw-bold" id="statBelum">-</h5>
               </div>
             </div>
-            <div class="col-4 col-md-2">
-              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-3 h-100">
-                <div class="text-danger small fw-bold">Lewat</div>
-                <h4 class="mb-0 text-danger fw-bold" id="statLewat">-</h4>
+            <div class="col-6 col-md-4">
+              <div class="card stat-card shadow-sm border-0 rounded-3 text-center p-2 h-100">
+                <div class="text-danger extra-small fw-bold">Lewat</div>
+                <h5 class="mb-0 text-danger fw-bold" id="statLewat">-</h5>
               </div>
             </div>
           </div>
 
-          <div class="row g-4">
-            <div class="col-md-6">
+          <!-- Row 2: Task Completion + Jadwal Hari Ini + Hari Tersibuk -->
+          <div class="row g-3">
+            <div class="col-md-4">
               <div class="card shadow-sm border-0 rounded-3 h-100">
-                <div class="card-header bg-white py-3"><h6 class="mb-0"><i class="fas fa-calendar-day me-1"></i>Jadwal Hari Ini</h6></div>
-                <div class="card-body" id="todaySchedule">
+                <div class="card-header bg-white py-2"><h6 class="mb-0 small fw-bold"><i class="fas fa-check-circle me-1"></i>Task Completion</h6></div>
+                <div class="card-body p-3 text-center" id="taskCompletion">
+                  <div class="text-muted small text-center py-3">Memuat data...</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white py-2"><h6 class="mb-0 small fw-bold"><i class="fas fa-calendar-day me-1"></i>Jadwal Hari Ini</h6></div>
+                <div class="card-body p-3" id="todaySchedule" style="max-height:185px;overflow-y:auto;">
                   <div class="text-muted small text-center py-3">Memuat jadwal...</div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="card shadow-sm border-0 rounded-3 h-100">
-                <div class="card-header bg-white py-3"><h6 class="mb-0"><i class="fas fa-clock me-1"></i>Tugas Mendatang</h6></div>
-                <div class="card-body" id="upcomingTasks">
-                  <div class="text-muted small text-center py-3">Memuat tugas...</div>
+                <div class="card-header bg-white py-2"><h6 class="mb-0 small fw-bold"><i class="fas fa-chart-bar me-1"></i>Hari Tersibuk</h6></div>
+                <div class="card-body p-3" id="busiestDay">
+                  <div class="text-muted small text-center py-3">Memuat data...</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="row g-4 mt-1">
-            <div class="col-md-7">
-              <div class="card shadow-sm border-0 rounded-3">
-                <div class="card-header bg-white py-3"><h6 class="mb-0"><i class="fas fa-chart-pie me-1"></i>Progress per Mata Kuliah</h6></div>
-                <div class="card-body" id="progressMatkul">
+          <!-- Row 3: Tugas Mendatang + Progress MK + IPK Semester -->
+          <div class="row g-3 mt-0">
+            <div class="col-md-4">
+              <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white py-2"><h6 class="mb-0 small fw-bold"><i class="fas fa-clock me-1"></i>Tugas Mendatang</h6></div>
+                <div class="card-body p-3" id="upcomingTasks" style="max-height:185px;overflow-y:auto;">
+                  <div class="text-muted small text-center py-3">Memuat tugas...</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white py-2"><h6 class="mb-0 small fw-bold"><i class="fas fa-chart-pie me-1"></i>Progress per MK</h6></div>
+                <div class="card-body p-3" id="progressMatkul" style="max-height:185px;overflow-y:auto;">
                   <div class="text-muted small text-center py-3">Memuat progress...</div>
                 </div>
               </div>
             </div>
-            <div class="col-md-5">
-              <div class="card shadow-sm border-0 rounded-3">
-                <div class="card-header bg-white py-3"><h6 class="mb-0"><i class="fas fa-chart-bar me-1"></i>IPK per Semester</h6></div>
-                <div class="card-body" id="ipkSemester">
+            <div class="col-md-4">
+              <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white py-2"><h6 class="mb-0 small fw-bold"><i class="fas fa-chart-bar me-1"></i>IPK per Semester</h6></div>
+                <div class="card-body p-3" id="ipkSemester" style="max-height:185px;overflow-y:auto;">
                   <div class="text-muted small text-center py-3">Memuat data nilai...</div>
                 </div>
               </div>

@@ -19,34 +19,92 @@ function loadJadwal() {
 
 function renderCalendar(list) {
   const grid = document.getElementById('calendarGrid');
+
+  // Render empty grid
   let html = '<div class="cal-header time-col">Jam</div>';
-  DAYS.forEach(d=>{ html+='<div class="cal-header">'+d+'</div>'; });
-  HOURS.forEach(h=>{
-    html+='<div class="cal-cell" style="background:#f8f9fa;text-align:right;padding:4px;font-size:0.7rem;color:#6c757d;">'+h+'</div>';
-    DAYS.forEach(day=>{
-      const items = list.filter(j=> j.hari.toLowerCase()===day.toLowerCase() && j.jam_mulai && j.jam_mulai.startsWith(h.slice(0,2)));
-      let cell = '<div class="cal-cell">';
-      items.forEach(j=>{
-        const cls = j.jenis==='praktikum'?'cal-praktikum':j.jenis==='bimbingan'?'cal-bimbingan':'';
-        cell += '<div class="cal-item '+cls+'" data-id="'+j.id+'">';
-        cell += '<strong>'+escapeHtml(j.mata_kuliah)+'</strong><br>';
-        cell += '<span>'+escapeHtml(j.ruang)+' | '+fmtJam(j.jam_mulai)+'-'+fmtJam(j.jam_selesai)+'</span>';
-        cell += '<div class="item-actions">';
-        cell += '<button class="btn-edit-item" data-id="'+j.id+'" title="Edit"><i class="fas fa-pen"></i></button>';
-        cell += '<button class="btn-del-item" data-id="'+j.id+'" title="Hapus"><i class="fas fa-times"></i></button>';
-        cell += '</div></div>';
-      });
-      cell += '</div>';
-      html += cell;
-    });
+  DAYS.forEach(d => { html += '<div class="cal-header">' + d + '</div>'; });
+  HOURS.forEach(h => {
+    html += '<div class="cal-cell time-cell">' + h + '</div>';
+    DAYS.forEach(() => { html += '<div class="cal-cell"></div>'; });
   });
   grid.innerHTML = html;
 
-  grid.querySelectorAll('.btn-edit-item').forEach(b=>{
-    b.addEventListener('click',e=>{ e.stopPropagation(); editJadwal(b.dataset.id); });
+  // Remove old overlay
+  const oldOverlay = grid.querySelector('.cal-items-overlay');
+  if (oldOverlay) oldOverlay.remove();
+
+  // Measure cell dimensions
+  const cells = grid.querySelectorAll('.cal-cell');
+  if (!cells.length) return;
+  const gridRect = grid.getBoundingClientRect();
+  const style = getComputedStyle(grid);
+  const borderL = parseFloat(style.borderLeftWidth) || 1;
+  const borderT = parseFloat(style.borderTopWidth) || 1;
+  const cellWidth = cells[1].offsetWidth;
+  const cellHeight = cells[0].offsetHeight;
+  const gap = 1;
+
+  // Column positions — measure first day cell's left relative to grid content area
+  const firstDayRect = cells[1].getBoundingClientRect();
+  const colLeft = firstDayRect.left - gridRect.left - borderL;
+  const rowTop = cells[0].getBoundingClientRect().top - gridRect.top - borderT;
+
+  // Create overlay and position items
+  const overlay = document.createElement('div');
+  overlay.className = 'cal-items-overlay';
+  grid.appendChild(overlay);
+
+  list.forEach(j => {
+    if (!j.jam_mulai) return;
+
+    const dayIdx = DAYS.findIndex(d => d.toLowerCase() === j.hari.toLowerCase());
+    if (dayIdx === -1) return;
+
+    const [sH, sM] = j.jam_mulai.split(':').map(Number);
+    const [eH, eM] = j.jam_selesai ? j.jam_selesai.split(':').map(Number) : [sH + 1, sM];
+
+    const hourIdx = HOURS.findIndex(h => +h.split(':')[0] === sH);
+    if (hourIdx === -1) return;
+
+    const durMin = (eH * 60 + eM) - (sH * 60 + sM);
+    if (durMin <= 0) return;
+
+    const rowH = cellHeight + gap;
+    const top = rowTop + hourIdx * rowH + (sM / 60) * rowH;
+    const height = Math.max((durMin / 60) * rowH - 2, 14);
+    const left = colLeft + dayIdx * (cellWidth + gap);
+    const width = cellWidth;
+
+    const cls = j.jenis === 'praktikum' ? 'cal-praktikum' : j.jenis === 'bimbingan' ? 'cal-bimbingan' : '';
+
+    const div = document.createElement('div');
+    div.className = 'cal-item ' + cls;
+    div.dataset.id = j.id;
+    div.style.cssText =
+      'position:absolute;top:' + top + 'px;left:' + left + 'px;width:' + width + 'px;' +
+      'height:' + height + 'px;pointer-events:auto;';
+    div.innerHTML =
+      '<strong>' + escapeHtml(j.mata_kuliah) + '</strong><br>' +
+      '<span>' + escapeHtml(j.ruang) + ' | ' + fmtJam(j.jam_mulai) + '-' + fmtJam(j.jam_selesai) + '</span>' +
+      '<div class="item-actions">' +
+      '<button class="btn-edit-item" data-id="' + j.id + '" title="Edit"><i class="fas fa-pen"></i></button>' +
+      '<button class="btn-del-item" data-id="' + j.id + '" title="Hapus"><i class="fas fa-times"></i></button>' +
+      '</div>';
+    overlay.appendChild(div);
   });
-  grid.querySelectorAll('.btn-del-item').forEach(b=>{
-    b.addEventListener('click',e=>{ e.stopPropagation(); if(confirm('Hapus jadwal ini?')) deleteJadwal(b.dataset.id); });
+
+  // Event delegation for edit/delete (single listener on overlay)
+  overlay.addEventListener('click', function (e) {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    if (btn.classList.contains('btn-edit-item')) {
+      e.stopPropagation();
+      editJadwal(id);
+    } else if (btn.classList.contains('btn-del-item')) {
+      e.stopPropagation();
+      if (confirm('Hapus jadwal ini?')) deleteJadwal(id);
+    }
   });
 }
 

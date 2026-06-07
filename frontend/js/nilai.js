@@ -265,8 +265,7 @@ async function editNilai(id) {
     previewGrade();
     populateSemesterOptions();
     document.getElementById('nilaiSemester').value = n.semester || '';
-    bootstrap.Modal.getInstance(document.getElementById('nilaiModal'));
-    const modal = new bootstrap.Modal(document.getElementById('nilaiModal'));
+    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('nilaiModal'));
     modal.show();
   } catch {
     alert('Gagal memuat data nilai');

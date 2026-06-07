@@ -300,6 +300,7 @@ body { padding-top: 56px; overflow-x: hidden; overflow-y: scroll; background: #f
   border: 1px solid #dee2e6;
   border-radius: 8px;
   overflow: hidden;
+  position: relative;
 }
 .cal-header {
   background: #f8f9fa;
@@ -318,10 +319,10 @@ body { padding-top: 56px; overflow-x: hidden; overflow-y: scroll; background: #f
   border-left: 3px solid #0d6efd;
   border-radius: 4px;
   padding: 2px 6px;
-  margin: 2px;
   font-size: 0.7rem;
-  position: relative;
   cursor: pointer;
+  overflow: hidden;
+  z-index: 10;
 }
 .cal-item .item-actions {
   display: none;
@@ -347,6 +348,28 @@ body { padding-top: 56px; overflow-x: hidden; overflow-y: scroll; background: #f
   background: #fff;
   min-height: 56px;
   padding: 2px;
+}
+.cal-cell.time-cell {
+  background: #f8f9fa;
+  text-align: right;
+  padding: 4px;
+  font-size: 0.7rem;
+  color: #6c757d;
+}
+.theme-dark .cal-cell.time-cell {
+  background: #161b22;
+  color: #8b949e;
+}
+.cal-items-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+.cal-items-overlay .cal-item {
+  pointer-events: auto;
 }
 
 /* Badge jenis jadwal */
