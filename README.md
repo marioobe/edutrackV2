@@ -36,6 +36,7 @@ Platform ini dibangun sebagai proyek pengembangan web menggunakan pendekatan **V
 | **Dark / Light Theme** | Toggle tema gelap/terang dengan preferensi tersimpan di localStorage. Animasi card fadeInUp + hover lift. |
 | **Newsletter** | Form subscribe newsletter dengan notifikasi email via SMTP (Gmail). |
 | **Kontak** | Form kirim pesan yang tersimpan di database. |
+| **Admin Panel** | Panel khusus admin dengan 5 tab (Dashboard, Users, Messages, Subscribers, Newsletter). Role-based access (admin/user) via JWT. |
 | **Responsive Design** | Tampilan mobile-friendly dengan Bootstrap 5. |
 | **Indikasi Navigasi** | Active nav-link dengan underline biru via pseudo-element, konsisten tanpa shifting. |
 
@@ -51,7 +52,7 @@ Platform ini dibangun sebagai proyek pengembangan web menggunakan pendekatan **V
 | Jadwal Kuliah | `jadwal.html` | ✅ | CRUD jadwal dengan kalender grid |
 | Monitoring Nilai | `nilai.html` | ✅ | CRUD nilai dengan IPK, distribusi, filter semester |
 | Profil | `profile.html` | ✅ | Edit profil, ganti password, upload foto, ringkasan akademik (task completion, hari tersibuk, progress MK, IPK semester) |
-| Broadcast | `broadcast.html` | ✅ | Kirim newsletter ke subscriber |
+| Admin Panel | `broadcast.html` | ✅ (admin) | Panel admin: dashboard stats, manage users/messages/subscribers, kirim newsletter |
 
 ## Tech Stack
 
@@ -122,9 +123,11 @@ edutrack1/
 │   │   ├── jadwalController.js
 │   │   ├── nilaiController.js
 │   │   ├── contactController.js
-│   │   └── newsletterController.js
+│   │   ├── newsletterController.js
+│   │   └── adminController.js
 │   ├── middleware/
-│   │   └── auth.js            # Auth middleware (JWT verify)
+│   │   ├── auth.js            # Auth middleware (JWT verify)
+│   │   └── adminMiddleware.js  # Admin role check middleware
 │   ├── routes/                # Routes API
 │   │   ├── auth.js
 │   │   ├── tasks.js
@@ -132,7 +135,8 @@ edutrack1/
 │   │   ├── jadwal.js
 │   │   ├── nilai.js
 │   │   ├── contact.js
-│   │   └── newsletter.js
+│   │   ├── newsletter.js
+│   │   └── admin.js           # Admin endpoints (stats, users, messages, subscribers)
 │   ├── uploads/profiles/      # Foto profil user
 │   ├── .env                   # Konfigurasi environment
 │   └── server.js              # Entry point (port 3000)
@@ -164,7 +168,7 @@ edutrack1/
 │   ├── jadwal.html            # Jadwal kuliah
 │   ├── nilai.html             # Monitoring nilai
 │   ├── profile.html           # Profil akademik
-│   └── broadcast.html         # Kirim newsletter
+│   └── broadcast.html         # Admin Panel (role-based, admin only)
 ├── database/
 │   └── edutrack_db.sql        # Schema & seed database
 ├── docs/
@@ -180,7 +184,7 @@ edutrack1/
 
 | Table | Primary Key | Foreign Key | Deskripsi |
 |-------|-------------|-------------|-----------|
-| `users` | `id` | - | Data user (nama, email, password, nim, prodi, foto) |
+| `users` | `id` | - | Data user (nama, email, password, nim, prodi, foto, role) |
 | `tasks` | `id` | `user_id` → users.id | Tugas kuliah (judul, prioritas, deadline, status) |
 | `matkul` | `id` | `user_id` → users.id | Daftar mata kuliah per user |
 | `jadwal` | `id` | `user_id` → users.id | Jadwal kuliah (hari, jam, ruang, jenis) |
@@ -331,6 +335,17 @@ Base URL: `http://localhost:3000/api`
 | POST | `/api/newsletter/subscribe` | - | Berlangganan newsletter |
 | GET | `/api/newsletter/subscribers` | ✅ | Ambil daftar subscriber |
 | POST | `/api/newsletter/send` | ✅ | Kirim newsletter via email |
+
+### Admin (6 endpoints — all require auth + admin role)
+
+| Method | Endpoint | Auth | Admin | Deskripsi |
+|--------|----------|------|-------|-----------|
+| GET | `/api/admin/stats` | ✅ | ✅ | Statistik dashboard (jumlah users/tasks/messages/subscribers) |
+| GET | `/api/admin/users` | ✅ | ✅ | Daftar semua user |
+| DELETE | `/api/admin/users/:id` | ✅ | ✅ | Hapus user |
+| GET | `/api/admin/messages` | ✅ | ✅ | Daftar semua pesan kontak |
+| DELETE | `/api/admin/messages/:id` | ✅ | ✅ | Hapus pesan |
+| DELETE | `/api/admin/subscribers/:id` | ✅ | ✅ | Hapus subscriber |
 
 ## Testing
 

@@ -1,16 +1,26 @@
 (function() {
   const token = localStorage.getItem('token');
   const userName = localStorage.getItem('userName');
+  const userRole = localStorage.getItem('userRole');
   const btnLogin = document.getElementById('btnLogin');
   const navMenuLoggedIn = document.getElementById('navMenuLoggedIn');
   const navUserName = document.getElementById('navUserName');
   const btnLogout = document.getElementById('btnLogout');
+  const adminNavItem = document.getElementById('navAdminPanel');
 
   if (token && userName) {
     btnLogin.classList.add('d-none');
     navMenuLoggedIn.classList.remove('d-none');
     navUserName.textContent = userName;
     navUserName.classList.remove('d-none');
+
+    if (adminNavItem) {
+      if (userRole === 'admin') {
+        adminNavItem.classList.remove('d-none');
+      } else {
+        adminNavItem.classList.add('d-none');
+      }
+    }
 
     document.getElementById('ctaTaskManager')?.setAttribute('href', 'taskmanager.html');
     document.getElementById('btnMulaiSekarang')?.setAttribute('href', 'taskmanager.html');
@@ -27,6 +37,7 @@
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userRole');
     window.location.href = 'index.html';
   });
 

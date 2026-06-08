@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
   nim VARCHAR(30) DEFAULT NULL,
   prodi VARCHAR(100) DEFAULT NULL,
   foto_profil VARCHAR(255) DEFAULT NULL,
+  role ENUM('user','admin') NOT NULL DEFAULT 'user',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -80,3 +81,7 @@ CREATE TABLE IF NOT EXISTS subscribers (
   email VARCHAR(100) UNIQUE NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
+
+-- Seed admin user (password: admin123 — generated via bcrypt)
+INSERT INTO users (name, email, password, role) VALUES
+('Admin', 'admin@test.com', '$2b$10$0K9wqLyxcIG06snp9A9Y9.LO5XBb5Ph3IjTBGBiuDf7H14.ucn5e2', 'admin');

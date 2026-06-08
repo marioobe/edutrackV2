@@ -9,6 +9,8 @@
     return;
   }
 
+  let role = 'user';
+
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
     const now = Math.floor(Date.now() / 1000);
@@ -16,14 +18,31 @@
     if (payload.exp && payload.exp < now) {
       localStorage.removeItem('token');
       localStorage.removeItem('userName');
+      localStorage.removeItem('userRole');
       window.location.href = 'login.html?expired=1';
       return;
     }
+
+    role = payload.role || 'user';
+    localStorage.setItem('userRole', role);
   } catch {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
+    localStorage.removeItem('userRole');
     window.location.href = 'login.html';
     return;
+  }
+
+  const page = window.location.pathname.split('/').pop();
+  if (page === 'broadcast.html' && role !== 'admin') {
+    window.location.href = 'index.html';
+    return;
+  }
+
+  if (role !== 'admin') {
+    document.querySelectorAll('a.nav-link[href="broadcast.html"]').forEach(el => {
+      el.style.display = 'none';
+    });
   }
 
   const userName = localStorage.getItem('userName') || 'User';
@@ -53,6 +72,15 @@
       .catch(() => {});
   }
 
+  const adminNavItem = document.getElementById('navAdminPanel');
+  if (adminNavItem) {
+    if (role === 'admin') {
+      adminNavItem.classList.remove('d-none');
+    } else {
+      adminNavItem.classList.add('d-none');
+    }
+  }
+
   const btnLogout = document.getElementById('btnLogout');
   if (btnLogout) {
     btnLogout.addEventListener('click', (e) => {
@@ -60,6 +88,7 @@
       localStorage.removeItem('token');
       localStorage.removeItem('userName');
       localStorage.removeItem('userEmail');
+      localStorage.removeItem('userRole');
       window.location.href = 'index.html';
     });
   }

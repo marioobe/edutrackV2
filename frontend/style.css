@@ -425,3 +425,29 @@ body { padding-top: 56px; overflow-x: hidden; overflow-y: scroll; background: #f
 .deadline-danger { color: #dc3545; font-weight: 600; }
 .deadline-warning { color: #d39e00; font-weight: 600; }
 .deadline-safe { color: #6c757d; }
+
+/* ── Admin Panel Tabs ── */
+.theme-dark .nav-tabs {
+  border-bottom-color: var(--dark-border);
+}
+.theme-dark .nav-tabs .nav-link {
+  color: var(--dark-muted);
+  border-color: transparent;
+  background: transparent;
+}
+.theme-dark .nav-tabs .nav-link:hover {
+  color: var(--dark-text);
+  border-color: var(--dark-border) var(--dark-border) transparent;
+}
+.theme-dark .nav-tabs .nav-link.active {
+  color: #0d6efd;
+  background: var(--dark-card);
+  border-color: var(--dark-border) var(--dark-border) var(--dark-card);
+}
+.theme-dark .badge.bg-warning.text-dark {
+  background: rgba(255,193,7,0.15) !important;
+  color: #ffc107 !important;
+}
+.theme-dark .nav-tabs .nav-link i {
+  margin-right: 4px;
+}

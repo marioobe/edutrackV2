@@ -28,8 +28,14 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     }
     localStorage.setItem('token', data.token);
     localStorage.setItem('userName', data.user.name);
-    const next = params.get('next') || 'taskmanager.html';
-    window.location.href = next;
+    localStorage.setItem('userRole', data.user.role || 'user');
+    const role = data.user.role;
+    const next = params.get('next');
+    if (role === 'admin' && (!next || next === 'taskmanager.html')) {
+      window.location.href = 'broadcast.html';
+    } else {
+      window.location.href = next || 'taskmanager.html';
+    }
   } catch (err) {
     errEl.textContent = 'Gagal terhubung ke server.';
     errEl.classList.remove('d-none');
